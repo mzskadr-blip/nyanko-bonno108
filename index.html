@@ -40,11 +40,9 @@
     .btn-main-green { background: var(--primary-green); }
     .btn-main-blue:disabled, .btn-main-green:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    /* コピー用ボタンスタイル */
     .btn-copy { background: #ffedd5; color: #c2410c; border: 1px solid #fed7aa; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 800; transition: all 0.2s; }
     .btn-copy:active { transform: scale(0.96); }
 
-    /* ボード中央 */
     .board-center { text-align: center; padding: 16px; background: #ffffff; border-radius: 16px; border: 2px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.04); position: relative; transition: all 0.3s; }
     .board-center.fever-mode { border-color: var(--fever-color); background: #fdf2f8; box-shadow: 0 0 18px rgba(236,72,153,0.3); }
     .limit-badge { font-size: 12px; font-weight: 800; padding: 3px 10px; border-radius: 12px; background: #fee2e2; color: #b91c1c; display: inline-block; margin-bottom: 4px; }
@@ -62,10 +60,9 @@
 
     .log-box { font-size: 13px; color: #334155; background: #ffffff; padding: 10px; border-radius: 8px; border: 1px solid var(--border); text-align: center; min-height: 42px; display: flex; align-items: center; justify-content: center; font-weight: 700; }
 
-    /* 手札 */
     .hand-container { position: sticky; bottom: 0; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); padding: 10px 0 16px 0; border-top: 1px solid var(--border); z-index: 10; }
     .hand-cards { display: flex; justify-content: center; gap: 8px; overflow-x: auto; padding: 4px; }
-    .game-card { width: 92px; height: 134px; border-radius: 10px; display: flex; flex-direction: column; justify-content: space-between; padding: 6px; font-weight: 800; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; border: 2px solid rgba(0,0,0,0.08); box-shadow: 0 4px 6px rgba(0,0,0,0.06); user-select: none; position: relative; overflow: hidden; }
+    .game-card { width: 92px; height: 134px; border-radius: 10px; display: flex; flex-direction: column; justify-content: space-between; padding: 4px; font-weight: 800; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; border: 2px solid rgba(0,0,0,0.08); box-shadow: 0 4px 6px rgba(0,0,0,0.06); user-select: none; position: relative; overflow: hidden; background: #ffffff; }
     .game-card:hover:not(.disabled) { transform: translateY(-8px); box-shadow: 0 8px 14px rgba(0,0,0,0.15); }
     .game-card.disabled { opacity: 0.4; cursor: not-allowed; }
     
@@ -74,11 +71,11 @@
     .card-special { background-color: #d97706; color: #fff; }
     .card-calc { background-color: #7c3aed; color: #fff; }
     .card-fever { background: linear-gradient(135deg, #ec4899, #f43f5e, #fbbf24); color: #fff; border: 2px solid #fff; box-shadow: 0 0 10px rgba(236,72,153,0.5); }
-    .card-val { font-size: 24px; text-align: center; margin: auto 0; font-weight: 900; text-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+    .card-val { font-size: 24px; text-align: center; margin: auto 0; font-weight: 900; }
 
-    .card-inner-img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+    /* 画像縦横比維持用スタイル */
+    .card-inner-img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; border-radius: 6px; }
 
-    /* モーダル */
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; padding: 16px; z-index: 100; }
     .modal-box { background: #ffffff; max-width: 440px; width: 100%; border-radius: 14px; padding: 20px; max-height: 85vh; overflow-y: auto; }
     .modal-box h3 { color: var(--primary-orange); margin-bottom: 12px; }
@@ -86,7 +83,7 @@
     .modal-box ul { padding-left: 18px; margin-bottom: 14px; }
     .btn-close { width: 100%; padding: 10px; background: #64748b; color: #fff; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
 
-    /* 特殊演出レイヤー */
+    /* 演出レイヤー */
     .cutin-overlay { position: fixed; inset: 0; z-index: 999; display: none; align-items: center; justify-content: center; flex-direction: column; pointer-events: none; overflow: hidden; }
     .fever-bg { background: radial-gradient(circle, rgba(236,72,153,0.92) 0%, rgba(17,24,39,0.95) 100%); }
     .speed-lines { position: absolute; inset: 0; background: repeating-conic-gradient(from 0deg, transparent 0deg 8deg, rgba(255,255,255,0.12) 8deg 15deg); animation: spinLines 3s linear infinite; }
@@ -119,7 +116,8 @@
     .collapse-desc { font-size: 16px; color: #f8fafc; font-weight: 700; margin-top: 8px; text-align: center; }
     .collapse-loser { color: #fde047; font-size: 22px; font-weight: 900; margin-top: 6px; }
 
-    .custom-asset-img { max-width: 90%; max-height: 120px; object-fit: contain; }
+    /* 文字画像の縦横比維持（引き伸ばし防止） */
+    .custom-asset-img { max-width: 90%; max-height: 140px; object-fit: contain; }
   </style>
 </head>
 <body>
@@ -152,7 +150,6 @@
   </header>
 
   <div class="container" id="mainContainer">
-    <!-- ロビー画面 -->
     <div id="lobbyScreen" style="display: flex; flex-direction: column; gap: 14px;">
       <h1 class="app-title-big">🐈にゃんこ煩悩大暴走‼️</h1>
 
@@ -179,7 +176,6 @@
       </div>
     </div>
 
-    <!-- ゲーム画面 -->
     <div id="gameScreen" style="display: none; flex-direction: column; gap: 14px;">
       <div style="display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border); flex-wrap: wrap; gap: 8px;">
         <div style="display: flex; align-items: center; gap: 8px;">
@@ -206,7 +202,6 @@
     </div>
   </div>
 
-  <!-- ルールモーダル -->
   <div id="rulesModal" class="modal-overlay">
     <div class="modal-box">
       <h3>【🐈にゃんこ煩悩大暴走‼️】ルール</h3>
@@ -238,7 +233,6 @@
     </div>
   </div>
 
-  <!-- SHOT指名モーダル -->
   <div id="shotModal" class="modal-overlay">
     <div class="modal-box">
       <h3>手番を渡すプレイヤーを選択</h3>
@@ -249,52 +243,68 @@
 
   <script>
     /* ═════════════════════════════════════════════════════════
-       ★ ゲームバランス調整用・カード枚数設定 (DECK_CONFIG)
+       ★ カード枚数バランス設定 (DECK_CONFIG)
        ═════════════════════════════════════════════════════════ */
     const DECK_CONFIG = {
-      numbers_1_to_10_each: 3, // +1〜+10 各3枚 (計30枚)
+      numbers_1_to_10_each: 3,
       counts: {
-        '+29': 3,     // にくきゅー
+        '+29': 3,
         '-1': 3,
         '-10': 3,
-        '108': 3,     // 合計を108にする
+        '108': 3,
         'PASS': 3,
         'TURN': 3,
         'SHOT': 3,
-        'DOUBLE': 3,  // 次の人が2枚出し
-        '÷2': 2,      // 合計を2で割る
-        '×2': 2,      // 合計を2倍にする
-        '√': 1,       // 平方根
-        '+20': 0,     // 復活させたい時は数値を設定
+        'DOUBLE': 3,
+        '÷2': 2,
+        '×2': 2,
+        '√': 1,
+        '+20': 0,
         '+30': 0,
         '+40': 0,
         '+50': 0
       },
       fever: {
-        probability: 0.5, // 50%
+        probability: 0.5,
         count: 1
       }
     };
 
     /* ═════════════════════════════════════════════════════════
-       ★ 画像差し替え用設定 (ASSETS)
+       ★ アップロードされた画像ファイル名に完全対応！ (ASSETS)
        ═════════════════════════════════════════════════════════ */
     const ASSETS = {
-      cutinFever: '',      // 例: 'images/bonno_bousou.png'
-      cutinGameOver: '',   // 例: 'images/bonno_houkai.png'
+      // 演出文字画像
+      cutinFever: 'bonno_bousou.PNG',
+      cutinGameOver: 'bonno_houkai.PNG',
+
+      // カードイラスト画像
       cards: {
-        '÷2': '',
-        '×2': '',
-        '√': '',
-        '+29': '',
-        'NYANKO FEVER': '',
-        '108': '',
-        'PASS': '',
-        'TURN': '',
-        'SHOT': '',
-        'DOUBLE': '',
-        '-1': '',
-        '-10': ''
+        '÷2': 'card_div2.PNG',
+        '×2': 'card_mul2.PNG',
+        '√': 'card_sprt.PNG',
+        '+29': 'card_29.PNG',
+        'NYANKO FEVER': 'nyanko_fever.PNG',
+
+        '108': 'card_108.PNG',
+        'PASS': 'card_pass.PNG',
+        'TURN': 'card_trun.PNG',
+        'SHOT': 'card_shot.PNG',
+        'DOUBLE': 'card_double.PNG',
+
+        '-1': 'card_minus1.PNG',
+        '-10': 'card_minus10.PNG',
+
+        '+1': 'card_1.PNG',
+        '+2': 'card_2.png',
+        '+3': 'card_3.PNG',
+        '+4': 'card_4.png',
+        '+5': 'card_5.PNG',
+        '+6': '',             // 未アップロードのため自動でテキスト表示
+        '+7': 'card_7.PNG',
+        '+8': 'card_8.PNG',
+        '+9': 'card_9.PNG',
+        '+10': 'card_10.PNG'
       }
     };
 
@@ -319,9 +329,6 @@
     };
     let pendingShotIdx = null;
 
-    /* ═════════════════════════════════════════════════════════
-       ★ 招待URLコピー & URLパラメータ読み込み
-       ═════════════════════════════════════════════════════════ */
     function getInviteUrl() {
       const url = new URL(window.location.href);
       url.searchParams.set('room', room.code);
@@ -361,7 +368,6 @@
       }
     }
 
-    // ページ読み込み時に招待URLの ?room=XXXX を自動入力
     window.addEventListener('DOMContentLoaded', () => {
       const params = new URLSearchParams(window.location.search);
       const roomParam = params.get('room');

@@ -38,18 +38,15 @@
     .btn-main-green { background: var(--primary-green); }
     .btn-copy { background: #ffedd5; color: #c2410c; border: 1px solid #fed7aa; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 800; }
 
-    /* 待機ストーリーパネル */
     .story-card { background: #fff; border: 2px dashed #fed7aa; border-radius: 16px; padding: 18px 16px; line-height: 1.8; font-size: 13.5px; color: #334155; }
     .story-title { font-size: 15px; font-weight: 900; color: var(--primary-orange); margin-bottom: 10px; }
     .story-text p { margin-bottom: 8px; }
     .story-highlight { font-weight: 800; color: #c2410c; background: #fff7ed; padding: 1px 5px; border-radius: 4px; }
 
-    /* ★ ボード中央（案A：左に数字、右に出したカード） */
     .board-center { padding: 14px 16px; background: #fff; border-radius: 16px; border: 2px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.04); text-align: center; }
     .board-center.fever-mode { border-color: var(--fever-color); background: #fdf2f8; box-shadow: 0 0 18px rgba(236,72,153,0.3); }
     .board-split { display: flex; align-items: center; justify-content: space-around; margin: 10px 0; gap: 12px; }
-    .board-left { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-    .board-right { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .board-left, .board-right { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
     
     .limit-badge { font-size: 12px; font-weight: 800; padding: 3px 10px; border-radius: 12px; background: #fee2e2; color: #b91c1c; display: inline-block; margin-bottom: 2px; }
     .limit-badge.fever { background: #fbcfe8; color: #be185d; animation: pulse 1s infinite alternate; }
@@ -60,7 +57,6 @@
     .counter-danger { color: var(--danger); }
     .status-badge { display: inline-block; padding: 4px 10px; border-radius: 14px; font-size: 12px; background: #f1f5f9; font-weight: 700; color: var(--text-sub); }
 
-    /* 出されたカード（卓上表示用） */
     .table-card-box {
       width: 86px;
       height: 120px;
@@ -73,7 +69,6 @@
       align-items: center;
       justify-content: center;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: transform 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
     }
     .table-card-box.card-pop { animation: popIn 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28); }
     @keyframes popIn { 0% { transform: scale(0.8); } 70% { transform: scale(1.08); } 100% { transform: scale(1); } }
@@ -84,7 +79,6 @@
     .player-card.active { border-color: var(--primary-orange); background: #fff7ed; transform: scale(1.02); }
     .log-box { font-size: 13px; color: #334155; background: #fff; padding: 10px; border-radius: 8px; border: 1px solid var(--border); text-align: center; min-height: 42px; display: flex; align-items: center; justify-content: center; font-weight: 700; }
 
-    /* 手札 */
     .hand-container { position: sticky; bottom: 0; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); padding: 10px 0 16px 0; border-top: 1px solid var(--border); z-index: 10; }
     .hand-cards { display: flex; justify-content: center; gap: 8px; overflow-x: auto; padding: 4px; }
     .game-card { width: 96px; height: 136px; border-radius: 12px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 4px; font-weight: 800; cursor: pointer; border: 2px solid rgba(0,0,0,0.1); box-shadow: 0 4px 8px rgba(0,0,0,0.08); position: relative; background: #fff; }
@@ -132,7 +126,6 @@
     .fever-subtitle { font-size: 20px; font-weight: 800; color: #fde047; margin-top: 4px; letter-spacing: 2px; }
     .fever-title.show { transform: scale(1); opacity: 1; }
 
-    /* 煩悩崩壊 演出 */
     .gameover-bg { background: rgba(10, 15, 29, 0.96); animation: redFlash 0.35s ease-out; }
     @keyframes redFlash { 0% { background: rgba(220, 38, 38, 0.95); } 100% { background: rgba(10, 15, 29, 0.96); } }
     .shake-screen { animation: screenShake 0.45s ease-in-out; }
@@ -226,7 +219,6 @@
         <button id="btnStartGame" class="btn-main-green" style="width: auto; padding: 8px 20px; margin: 0; font-size: 15px; font-weight: 900; display: none;" onclick="startGame()">▶︎ ゲーム開始</button>
       </div>
 
-      <!-- 待機ストーリーパネル -->
       <div id="waitingStoryBox" class="story-card">
         <div class="story-title">🐾 にゃんこ煩悩大暴走のものがたり</div>
         <div class="story-text">
@@ -238,7 +230,6 @@
         </div>
       </div>
 
-      <!-- ★ 案A対戦ボード（左に数字、右に出されたカード） -->
       <div id="boardCenter" class="board-center" style="display: none;">
         <div id="limitBadge" class="limit-badge">上限: 108</div>
         <div class="board-split">
@@ -264,7 +255,6 @@
         <div id="playersList" class="players-grid"></div>
       </div>
 
-      <!-- 手札コンテナ -->
       <div id="handContainer" class="hand-container" style="display: none;">
         <div id="turnNotice" style="font-size: 13px; font-weight: bold; color: var(--text-sub); text-align: center; margin-bottom: 8px;">手番を待っています</div>
         <div id="handCards" class="hand-cards"></div>
@@ -272,7 +262,6 @@
     </div>
   </div>
 
-  <!-- ルールモーダル -->
   <div id="rulesModal" class="modal-overlay">
     <div class="modal-box">
       <h3>【🐈にゃんこ煩悩大暴走‼️】ルール</h3>
@@ -286,9 +275,10 @@
       <h4 style="color: var(--primary-orange); margin: 8px 0 4px 0;">オリジナル追加カード</h4>
       <ul>
         <li><strong>÷2:</strong> 現在の合計値を2で割る（四捨五入）</li>
-        <li><strong>×2:</strong> 現在の合計値を2倍にする（※DOUBLEとは別）</li>
+        <li><strong>×2:</strong> 現在の合計値を2倍にする</li>
+        <li><strong>x²:</strong> 現在の合計値を二乗（2乗）する超大技！</li>
         <li><strong>√:</strong> 現在の合計値の平方根（四捨五入）</li>
-        <li><strong>+29:</strong> 合計値に29を加える</li>
+        <li><strong>+29 / +77:</strong> 大幅加算カード</li>
         <li><strong>NYANKO FEVER:</strong> ゲーム開始時50%の確率で混入。発動すると<strong>上限が108から【222】に大暴走！</strong></li>
       </ul>
       <h4 style="color: var(--primary-blue); margin: 8px 0 4px 0;">基本カード</h4>
@@ -311,12 +301,23 @@
   </div>
 
   <script>
+    /* ★ +77（2枚） と x²（1枚） を追加！ */
     const DECK_CONFIG = {
       numbers_1_to_10_each: 3,
       counts: {
-        '+29': 3, '-1': 3, '-10': 3, '108': 3,
-        'PASS': 3, 'TURN': 3, 'SHOT': 3, 'DOUBLE': 3,
-        '÷2': 2, '×2': 2, '√': 1,
+        '+29': 3,
+        '+77': 2,    // ★ 77加算
+        'x²': 1,     // ★ 二乗
+        '-1': 3,
+        '-10': 3,
+        '108': 3,
+        'PASS': 3,
+        'TURN': 3,
+        'SHOT': 3,
+        'DOUBLE': 3,
+        '÷2': 2,
+        '×2': 2,
+        '√': 1,
         '+20': 0, '+30': 0, '+40': 0, '+50': 0
       },
       fever: { probability: 0.5, count: 1 }
@@ -328,8 +329,10 @@
       cards: {
         '÷2': './card_div2.PNG',
         '×2': './card_mul2.PNG',
+        'x²': '',             // 将来画像が用意できたらパスを指定
         '√': './card_sprt.PNG',
         '+29': './card_29.PNG',
+        '+77': '',            // 将来画像が用意できたらパスを指定
         'NYANKO FEVER': './nyanko_fever.PNG',
         '108': './card_108.PNG',
         'PASS': './card_pass.PNG',
@@ -369,7 +372,7 @@
       loser: null,
       pendingDouble: false,
       playerRemainingPlays: 1,
-      lastCard: null // ★ 直前に出されたカード情報
+      lastCard: null
     };
     let pendingShotIdx = null;
 
@@ -437,6 +440,8 @@
 
       const cardMaster = {
         '+29': { t: 'num', v: 29, l: '+29' },
+        '+77': { t: 'num', v: 77, l: '+77' }, // ★ +77
+        'x²':  { t: 'sqr', v: 0, l: 'x²' },   // ★ 二乗
         '+20': { t: 'num', v: 20, l: '+20' },
         '+30': { t: 'num', v: 30, l: '+30' },
         '+40': { t: 'num', v: 40, l: '+40' },
@@ -643,7 +648,6 @@
         room.discardPile.push(card);
       }
 
-      // ★ 直前に出されたカードを記録（プレイヤー名付き）
       room.lastCard = { ...card, playedBy: p.name };
 
       let justSetDouble = false;
@@ -677,6 +681,10 @@
       } else if (card.t === 'mul2') {
         room.currentTotal = room.currentTotal * 2;
         room.lastAction = `${p.name} が [×2]！ 煩悩が2倍 (${room.currentTotal}) に跳ね上がった！`;
+      } else if (card.t === 'sqr') {
+        // ★ 二乗効果
+        room.currentTotal = room.currentTotal * room.currentTotal;
+        room.lastAction = `${p.name} が [x²]！ 煩悩が二乗 (${room.currentTotal}) に大爆発！！`;
       } else if (card.t === 'div2') {
         room.currentTotal = Math.round(room.currentTotal / 2);
         room.lastAction = `${p.name} が [÷2]！ 煩悩が半減 (${room.currentTotal}) に浄化された！`;
@@ -845,7 +853,6 @@
       const isDanger = st.currentTotal >= (st.maxBonno - 15);
       cv.className = 'counter-value ' + (isDanger ? 'counter-danger' : 'counter-normal');
 
-      // ★ 案A：直前に出されたカードの描画
       const tableCardBox = document.getElementById('tableCardContainer');
       const playerTag = document.getElementById('lastPlayerTag');
 
@@ -853,7 +860,7 @@
         const c = st.lastCard;
         const imgSrc = ASSETS.cards[c.l];
         let badgeCls = '';
-        if (c.t === 'div2' || c.t === 'mul2' || c.t === 'sqrt') badgeCls = 'badge-calc';
+        if (c.t === 'div2' || c.t === 'mul2' || c.t === 'sqrt' || c.t === 'sqr') badgeCls = 'badge-calc';
         else if (c.t === 'fever') badgeCls = 'badge-fever';
         else if (c.t === '108') badgeCls = 'badge-danger';
 
@@ -867,7 +874,7 @@
           `;
         } else {
           innerContent = `
-            <div class="card-corner-badge" style="font-size:10px; padding:1px 5px;">${c.l}</div>
+            <div class="card-corner-badge ${badgeCls}" style="font-size:10px; padding:1px 5px;">${c.l}</div>
             <div class="card-val" style="font-size:20px; color:#1e293b;">${c.l}</div>
           `;
         }
@@ -927,7 +934,7 @@
         div.className = `game-card ${!isMyTurn ? 'disabled' : ''}`;
 
         let badgeCls = '';
-        if (c.t === 'div2' || c.t === 'mul2' || c.t === 'sqrt') badgeCls = 'badge-calc';
+        if (c.t === 'div2' || c.t === 'mul2' || c.t === 'sqrt' || c.t === 'sqr') badgeCls = 'badge-calc';
         else if (c.t === 'fever') badgeCls = 'badge-fever';
         else if (c.t === '108') badgeCls = 'badge-danger';
 
@@ -943,7 +950,7 @@
         } else {
           let cl = 'card-num';
           if (c.t === 'min') cl = 'card-minus';
-          else if (c.t === 'div2' || c.t === 'mul2' || c.t === 'sqrt') cl = 'card-calc';
+          else if (c.t === 'div2' || c.t === 'mul2' || c.t === 'sqrt' || c.t === 'sqr') cl = 'card-calc';
           else if (c.t === 'fever') cl = 'card-fever';
           else if (c.t !== 'num') cl = 'card-special';
 

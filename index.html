@@ -38,32 +38,46 @@
     .btn-main-green { background: var(--primary-green); }
     .btn-copy { background: #ffedd5; color: #c2410c; border: 1px solid #fed7aa; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 800; }
 
-    /* ★ 部屋に入った待機画面のストーリーパネル */
-    .story-card {
-      background: #ffffff;
-      border: 2px dashed #fed7aa;
-      border-radius: 16px;
-      padding: 18px 16px;
-      line-height: 1.8;
-      font-size: 13.5px;
-      color: #334155;
-      box-shadow: 0 4px 12px rgba(234, 88, 12, 0.05);
-    }
+    /* 待機ストーリーパネル */
+    .story-card { background: #fff; border: 2px dashed #fed7aa; border-radius: 16px; padding: 18px 16px; line-height: 1.8; font-size: 13.5px; color: #334155; }
     .story-title { font-size: 15px; font-weight: 900; color: var(--primary-orange); margin-bottom: 10px; }
     .story-text p { margin-bottom: 8px; }
     .story-highlight { font-weight: 800; color: #c2410c; background: #fff7ed; padding: 1px 5px; border-radius: 4px; }
 
-    /* ボード中央 */
-    .board-center { text-align: center; padding: 16px; background: #fff; border-radius: 16px; border: 2px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+    /* ★ ボード中央（案A：左に数字、右に出したカード） */
+    .board-center { padding: 14px 16px; background: #fff; border-radius: 16px; border: 2px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.04); text-align: center; }
     .board-center.fever-mode { border-color: var(--fever-color); background: #fdf2f8; box-shadow: 0 0 18px rgba(236,72,153,0.3); }
-    .limit-badge { font-size: 12px; font-weight: 800; padding: 3px 10px; border-radius: 12px; background: #fee2e2; color: #b91c1c; display: inline-block; margin-bottom: 4px; }
+    .board-split { display: flex; align-items: center; justify-content: space-around; margin: 10px 0; gap: 12px; }
+    .board-left { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .board-right { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    
+    .limit-badge { font-size: 12px; font-weight: 800; padding: 3px 10px; border-radius: 12px; background: #fee2e2; color: #b91c1c; display: inline-block; margin-bottom: 2px; }
     .limit-badge.fever { background: #fbcfe8; color: #be185d; animation: pulse 1s infinite alternate; }
     @keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.06); } }
 
-    .counter-value { font-size: 64px; font-weight: 900; line-height: 1; margin: 8px 0; }
+    .counter-value { font-size: 60px; font-weight: 900; line-height: 1; margin: 4px 0; }
     .counter-normal { color: var(--primary-orange); }
     .counter-danger { color: var(--danger); }
     .status-badge { display: inline-block; padding: 4px 10px; border-radius: 14px; font-size: 12px; background: #f1f5f9; font-weight: 700; color: var(--text-sub); }
+
+    /* 出されたカード（卓上表示用） */
+    .table-card-box {
+      width: 86px;
+      height: 120px;
+      border-radius: 10px;
+      border: 2px solid #cbd5e1;
+      background: #ffffff;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+    .table-card-box.card-pop { animation: popIn 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28); }
+    @keyframes popIn { 0% { transform: scale(0.8); } 70% { transform: scale(1.08); } 100% { transform: scale(1); } }
+    .player-tag { font-size: 11px; font-weight: 800; color: #475569; background: #f1f5f9; padding: 2px 8px; border-radius: 10px; margin-top: 4px; max-width: 120px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
     .players-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
     .player-card { background: #fff; padding: 10px 8px; border-radius: 10px; border: 2px solid var(--border); text-align: center; }
@@ -92,7 +106,6 @@
     .card-fever { background: linear-gradient(135deg, #ec4899, #f43f5e, #fbbf24); color: #fff; border: 2px solid #fff; }
     .card-val { font-size: 24px; text-align: center; margin: auto 0; font-weight: 900; }
 
-    /* モーダル */
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; padding: 16px; z-index: 100; }
     .modal-box { background: #fff; max-width: 440px; width: 100%; border-radius: 14px; padding: 20px; max-height: 85vh; overflow-y: auto; }
     .modal-box h3 { color: var(--primary-orange); margin-bottom: 12px; }
@@ -119,7 +132,7 @@
     .fever-subtitle { font-size: 20px; font-weight: 800; color: #fde047; margin-top: 4px; letter-spacing: 2px; }
     .fever-title.show { transform: scale(1); opacity: 1; }
 
-    /* ★ 煩悩崩壊 (GAME OVER) 演出：巨大化＋二重発光オーラ */
+    /* 煩悩崩壊 演出 */
     .gameover-bg { background: rgba(10, 15, 29, 0.96); animation: redFlash 0.35s ease-out; }
     @keyframes redFlash { 0% { background: rgba(220, 38, 38, 0.95); } 100% { background: rgba(10, 15, 29, 0.96); } }
     .shake-screen { animation: screenShake 0.45s ease-in-out; }
@@ -134,7 +147,7 @@
       width: 100%; display: flex; justify-content: center; align-items: center; margin-bottom: 12px;
       animation: zoomBang 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
     }
-    @keyframes zoomBang { 0% { transform: scale(0.35); opacity: 0; } 70% { transform: scale(1.15); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+    @keyframes zoomBang { 0% { transform: scale(0.35); opacity: 0; } 70% { transform: scale(1.15); opacity: 1; } 100% { transform: scale(1); } }
     .collapse-asset-img {
       width: 88%; max-width: 420px; max-height: 250px; object-fit: contain;
       filter: drop-shadow(0 0 5px #ffffff) drop-shadow(0 0 16px #ef4444) drop-shadow(0 0 32px #dc2626);
@@ -149,7 +162,6 @@
   </style>
 </head>
 <body>
-  <!-- 煩悩暴走‼️ 演出レイヤー -->
   <div id="feverOverlay" class="cutin-overlay fever-bg">
     <div class="speed-lines"></div>
     <div id="brainBox" class="brain-wrapper">
@@ -163,7 +175,6 @@
     </div>
   </div>
 
-  <!-- 煩悩崩壊 演出レイヤー -->
   <div id="collapseOverlay" class="cutin-overlay gameover-bg">
     <div id="collapseImgContainer" class="collapse-img-box"></div>
     <div id="collapseDefaultText" class="collapse-title">煩悩崩壊</div>
@@ -180,7 +191,6 @@
   </header>
 
   <div class="container" id="mainContainer">
-    <!-- 最初のエントランス（部屋作成・参加） -->
     <div id="lobbyScreen" style="display: flex; flex-direction: column; gap: 14px;">
       <h1 class="app-title-big">🐈にゃんこ煩悩大暴走‼️</h1>
 
@@ -207,7 +217,6 @@
       </div>
     </div>
 
-    <!-- 部屋に入った後の画面 -->
     <div id="gameScreen" style="display: none; flex-direction: column; gap: 14px;">
       <div style="display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border); flex-wrap: wrap; gap: 8px;">
         <div style="display: flex; align-items: center; gap: 8px;">
@@ -217,7 +226,7 @@
         <button id="btnStartGame" class="btn-main-green" style="width: auto; padding: 8px 20px; margin: 0; font-size: 15px; font-weight: 900; display: none;" onclick="startGame()">▶︎ ゲーム開始</button>
       </div>
 
-      <!-- ★ 部屋に入った後の待機ストーリーパネル -->
+      <!-- 待機ストーリーパネル -->
       <div id="waitingStoryBox" class="story-card">
         <div class="story-title">🐾 にゃんこ煩悩大暴走のものがたり</div>
         <div class="story-text">
@@ -229,11 +238,22 @@
         </div>
       </div>
 
-      <!-- 対戦ボード（ゲーム中のみ表示） -->
+      <!-- ★ 案A対戦ボード（左に数字、右に出されたカード） -->
       <div id="boardCenter" class="board-center" style="display: none;">
         <div id="limitBadge" class="limit-badge">上限: 108</div>
-        <div style="font-size: 12px; color: var(--text-sub); font-weight: bold;">現在の煩悩合計</div>
-        <div id="counterValue" class="counter-value counter-normal">0</div>
+        <div class="board-split">
+          <div class="board-left">
+            <div style="font-size: 12px; color: var(--text-sub); font-weight: bold;">現在の煩悩合計</div>
+            <div id="counterValue" class="counter-value counter-normal">0</div>
+          </div>
+          <div class="board-right">
+            <div style="font-size: 11px; color: var(--text-sub); font-weight: bold; margin-bottom: 4px;">直前のカード</div>
+            <div id="tableCardContainer">
+              <div class="table-card-box" style="border-style: dashed; color: #94a3b8; font-size: 26px;">🐾</div>
+            </div>
+            <div id="lastPlayerTag" class="player-tag" style="display:none;"></div>
+          </div>
+        </div>
         <div id="directionBadge" class="status-badge">回り順: 時計回り ➔</div>
       </div>
 
@@ -244,7 +264,7 @@
         <div id="playersList" class="players-grid"></div>
       </div>
 
-      <!-- 手札コンテナ（ゲーム中のみ表示） -->
+      <!-- 手札コンテナ -->
       <div id="handContainer" class="hand-container" style="display: none;">
         <div id="turnNotice" style="font-size: 13px; font-weight: bold; color: var(--text-sub); text-align: center; margin-bottom: 8px;">手番を待っています</div>
         <div id="handCards" class="hand-cards"></div>
@@ -302,7 +322,6 @@
       fever: { probability: 0.5, count: 1 }
     };
 
-    /* ★ アップロードされたファイル名に完全対応 */
     const ASSETS = {
       cutinFever: './bonno_bousou.PNG',
       cutinGameOver: './bonno_houkai.PNG',
@@ -349,7 +368,8 @@
       lastAction: '',
       loser: null,
       pendingDouble: false,
-      playerRemainingPlays: 1
+      playerRemainingPlays: 1,
+      lastCard: null // ★ 直前に出されたカード情報
     };
     let pendingShotIdx = null;
 
@@ -564,6 +584,7 @@
       room.pendingDouble = false;
       room.playerRemainingPlays = 1;
       room.loser = null;
+      room.lastCard = null;
 
       room.players.forEach(p => {
         p.hand = [room.deck.pop(), room.deck.pop(), room.deck.pop()];
@@ -621,6 +642,9 @@
       if (card.t !== 'fever') {
         room.discardPile.push(card);
       }
+
+      // ★ 直前に出されたカードを記録（プレイヤー名付き）
+      room.lastCard = { ...card, playedBy: p.name };
 
       let justSetDouble = false;
 
@@ -820,6 +844,41 @@
       cv.innerText = st.currentTotal;
       const isDanger = st.currentTotal >= (st.maxBonno - 15);
       cv.className = 'counter-value ' + (isDanger ? 'counter-danger' : 'counter-normal');
+
+      // ★ 案A：直前に出されたカードの描画
+      const tableCardBox = document.getElementById('tableCardContainer');
+      const playerTag = document.getElementById('lastPlayerTag');
+
+      if (st.lastCard) {
+        const c = st.lastCard;
+        const imgSrc = ASSETS.cards[c.l];
+        let badgeCls = '';
+        if (c.t === 'div2' || c.t === 'mul2' || c.t === 'sqrt') badgeCls = 'badge-calc';
+        else if (c.t === 'fever') badgeCls = 'badge-fever';
+        else if (c.t === '108') badgeCls = 'badge-danger';
+
+        let innerContent = '';
+        if (imgSrc) {
+          innerContent = `
+            <div class="card-corner-badge ${badgeCls}" style="font-size:10px; padding:1px 5px;">${c.l}</div>
+            <div style="width:70px; height:70px; margin-top:12px; display:flex; align-items:center; justify-content:center;">
+              <img src="${imgSrc}" class="card-inner-img" onerror="this.parentElement.innerHTML='<div class=\\'card-val\\' style=\\'font-size:18px;\\'>${c.l}</div>';">
+            </div>
+          `;
+        } else {
+          innerContent = `
+            <div class="card-corner-badge" style="font-size:10px; padding:1px 5px;">${c.l}</div>
+            <div class="card-val" style="font-size:20px; color:#1e293b;">${c.l}</div>
+          `;
+        }
+
+        tableCardBox.innerHTML = `<div class="table-card-box card-pop">${innerContent}</div>`;
+        playerTag.style.display = 'inline-block';
+        playerTag.innerText = `${c.playedBy} がプレイ！`;
+      } else {
+        tableCardBox.innerHTML = `<div class="table-card-box" style="border-style:dashed; color:#94a3b8; font-size:26px;">🐾</div>`;
+        playerTag.style.display = 'none';
+      }
 
       const dBadge = document.getElementById('directionBadge');
       let dText = `回り順: ${st.direction === 1 ? '時計回り ➔' : '反時計回り 逆➔'}`;

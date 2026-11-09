@@ -60,21 +60,74 @@
 
     .log-box { font-size: 13px; color: #334155; background: #ffffff; padding: 10px; border-radius: 8px; border: 1px solid var(--border); text-align: center; min-height: 42px; display: flex; align-items: center; justify-content: center; font-weight: 700; }
 
+    /* 手札カード */
     .hand-container { position: sticky; bottom: 0; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); padding: 10px 0 16px 0; border-top: 1px solid var(--border); z-index: 10; }
     .hand-cards { display: flex; justify-content: center; gap: 8px; overflow-x: auto; padding: 4px; }
-    .game-card { width: 92px; height: 134px; border-radius: 10px; display: flex; flex-direction: column; justify-content: space-between; padding: 4px; font-weight: 800; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; border: 2px solid rgba(0,0,0,0.08); box-shadow: 0 4px 6px rgba(0,0,0,0.06); user-select: none; position: relative; overflow: hidden; background: #ffffff; }
-    .game-card:hover:not(.disabled) { transform: translateY(-8px); box-shadow: 0 8px 14px rgba(0,0,0,0.15); }
+    
+    .game-card {
+      width: 96px;
+      height: 136px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 4px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      border: 2px solid rgba(0,0,0,0.1);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+      user-select: none;
+      position: relative;
+      background: #ffffff;
+    }
+    .game-card:hover:not(.disabled) { transform: translateY(-8px); box-shadow: 0 8px 16px rgba(0,0,0,0.18); }
     .game-card.disabled { opacity: 0.4; cursor: not-allowed; }
     
+    /* ★ 右上の小さめバッジ（正方形イラスト用） */
+    .card-corner-badge {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      background: rgba(15, 23, 42, 0.88);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 2px 6px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+      z-index: 3;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+    }
+    .card-corner-badge.badge-calc { background: #7c3aed; }
+    .card-corner-badge.badge-fever { background: #ec4899; }
+    .card-corner-badge.badge-danger { background: #dc2626; }
+
+    /* ★ 正方形イラスト枠 (正方形を崩さず中央配置) */
+    .card-img-square-box {
+      width: 86px;
+      height: 86px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 14px; /* バッジと被らないように少し下げる */
+    }
+    .card-inner-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* 正方形アスペクト比を完全維持 */
+      pointer-events: none;
+      border-radius: 8px;
+    }
+
+    /* 画像がないカードのスタイル */
     .card-num { background-color: #2563eb; color: #fff; }
     .card-minus { background-color: #059669; color: #fff; }
     .card-special { background-color: #d97706; color: #fff; }
     .card-calc { background-color: #7c3aed; color: #fff; }
-    .card-fever { background: linear-gradient(135deg, #ec4899, #f43f5e, #fbbf24); color: #fff; border: 2px solid #fff; box-shadow: 0 0 10px rgba(236,72,153,0.5); }
+    .card-fever { background: linear-gradient(135deg, #ec4899, #f43f5e, #fbbf24); color: #fff; border: 2px solid #fff; }
     .card-val { font-size: 24px; text-align: center; margin: auto 0; font-weight: 900; }
-
-    /* 画像縦横比維持用スタイル */
-    .card-inner-img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; border-radius: 6px; }
 
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; padding: 16px; z-index: 100; }
     .modal-box { background: #ffffff; max-width: 440px; width: 100%; border-radius: 14px; padding: 20px; max-height: 85vh; overflow-y: auto; }
@@ -116,7 +169,6 @@
     .collapse-desc { font-size: 16px; color: #f8fafc; font-weight: 700; margin-top: 8px; text-align: center; }
     .collapse-loser { color: #fde047; font-size: 22px; font-weight: 900; margin-top: 6px; }
 
-    /* 文字画像の縦横比維持（引き伸ばし防止） */
     .custom-asset-img { max-width: 90%; max-height: 140px; object-fit: contain; }
   </style>
 </head>
@@ -242,9 +294,6 @@
   </div>
 
   <script>
-    /* ═════════════════════════════════════════════════════════
-       ★ カード枚数バランス設定 (DECK_CONFIG)
-       ═════════════════════════════════════════════════════════ */
     const DECK_CONFIG = {
       numbers_1_to_10_each: 3,
       counts: {
@@ -271,40 +320,34 @@
     };
 
     /* ═════════════════════════════════════════════════════════
-       ★ アップロードされた画像ファイル名に完全対応！ (ASSETS)
+       ★ 画像設定 (相対パス ./ を明記して読み込み精度を向上)
        ═════════════════════════════════════════════════════════ */
     const ASSETS = {
-      // 演出文字画像
-      cutinFever: 'bonno_bousou.PNG',
-      cutinGameOver: 'bonno_houkai.PNG',
-
-      // カードイラスト画像
+      cutinFever: './bonno_bousou.PNG',
+      cutinGameOver: './bonno_houkai.PNG',
       cards: {
-        '÷2': 'card_div2.PNG',
-        '×2': 'card_mul2.PNG',
-        '√': 'card_sprt.PNG',
-        '+29': 'card_29.PNG',
-        'NYANKO FEVER': 'nyanko_fever.PNG',
-
-        '108': 'card_108.PNG',
-        'PASS': 'card_pass.PNG',
-        'TURN': 'card_trun.PNG',
-        'SHOT': 'card_shot.PNG',
-        'DOUBLE': 'card_double.PNG',
-
-        '-1': 'card_minus1.PNG',
-        '-10': 'card_minus10.PNG',
-
-        '+1': 'card_1.PNG',
-        '+2': 'card_2.png',
-        '+3': 'card_3.PNG',
-        '+4': 'card_4.png',
-        '+5': 'card_5.PNG',
-        '+6': '',             // 未アップロードのため自動でテキスト表示
-        '+7': 'card_7.PNG',
-        '+8': 'card_8.PNG',
-        '+9': 'card_9.PNG',
-        '+10': 'card_10.PNG'
+        '÷2': './card_div2.PNG',
+        '×2': './card_mul2.PNG',
+        '√': './card_sprt.PNG',
+        '+29': './card_29.PNG',
+        'NYANKO FEVER': './nyanko_fever.PNG',
+        '108': './card_108.PNG',
+        'PASS': './card_pass.PNG',
+        'TURN': './card_trun.PNG',
+        'SHOT': './card_shot.PNG',
+        'DOUBLE': './card_double.PNG',
+        '-1': './card_minus1.PNG',
+        '-10': './card_minus10.PNG',
+        '+1': './card_1.PNG',
+        '+2': './card_2.png',
+        '+3': './card_3.PNG',
+        '+4': './card_4.png',
+        '+5': './card_5.PNG',
+        '+6': '',
+        '+7': './card_7.PNG',
+        '+8': './card_8.PNG',
+        '+9': './card_9.PNG',
+        '+10': './card_10.PNG'
       }
     };
 
@@ -723,7 +766,7 @@
       const defText = document.getElementById('feverDefaultText');
 
       if (ASSETS.cutinFever) {
-        imgContainer.innerHTML = `<img src="${ASSETS.cutinFever}" alt="煩悩暴走‼️" class="custom-asset-img">`;
+        imgContainer.innerHTML = `<img src="${ASSETS.cutinFever}" alt="煩悩暴走‼️" class="custom-asset-img" onerror="this.style.display='none'; document.getElementById('feverDefaultText').style.display='block';">`;
         defText.style.display = 'none';
       } else {
         imgContainer.innerHTML = '';
@@ -753,7 +796,7 @@
       const loserElem = document.getElementById('collapseLoserName');
 
       if (ASSETS.cutinGameOver) {
-        imgContainer.innerHTML = `<img src="${ASSETS.cutinGameOver}" alt="煩悩崩壊" class="custom-asset-img">`;
+        imgContainer.innerHTML = `<img src="${ASSETS.cutinGameOver}" alt="煩悩崩壊" class="custom-asset-img" onerror="this.style.display='none'; document.getElementById('collapseDefaultText').style.display='block';">`;
         defText.style.display = 'none';
       } else {
         imgContainer.innerHTML = '';
@@ -842,29 +885,43 @@
         notice.style.color = 'var(--text-sub)';
       }
 
+      /* ═════════════════════════════════════════════════════════
+         ★ 正方形イラスト ＋ 右上ミニバッジの描画
+         ═════════════════════════════════════════════════════════ */
       const hc = document.getElementById('handCards');
       hc.innerHTML = '';
       myLocalHand.forEach((c, idx) => {
         const div = document.createElement('div');
-        let cl = 'card-num';
+        div.className = `game-card ${!isMyTurn ? 'disabled' : ''}`;
 
-        if (c.t === 'min') cl = 'card-minus';
-        else if (c.t === 'div2' || c.t === 'mul2' || c.t === 'sqrt') cl = 'card-calc';
-        else if (c.t === 'fever') cl = 'card-fever';
-        else if (c.t !== 'num') cl = 'card-special';
-
-        div.className = `game-card ${cl} ${!isMyTurn ? 'disabled' : ''}`;
+        // バッジの色分けクラス
+        let badgeCls = '';
+        if (c.t === 'div2' || c.t === 'mul2' || c.t === 'sqrt') badgeCls = 'badge-calc';
+        else if (c.t === 'fever') badgeCls = 'badge-fever';
+        else if (c.t === '108') badgeCls = 'badge-danger';
 
         const imgSrc = ASSETS.cards[c.l];
+
         if (imgSrc) {
-          div.style.background = '#ffffff';
-          div.style.padding = '3px';
-          div.innerHTML = `<img src="${imgSrc}" alt="${c.l}" class="card-inner-img">`;
-        } else {
+          // 画像が設定されているカード：右上にバッジ ＋ 中央に正方形画像
           div.innerHTML = `
-            <span style="font-size:9px; opacity:0.85;">にゃんこ煩悩</span>
+            <div class="card-corner-badge ${badgeCls}">${c.l}</div>
+            <div class="card-img-square-box">
+              <img src="${imgSrc}" alt="${c.l}" class="card-inner-img" onerror="this.parentElement.innerHTML='<div class=\\'card-val\\'>${c.l}</div>';">
+            </div>
+          `;
+        } else {
+          // まだ画像がないカード（+6など）：従来のテキストカード
+          let cl = 'card-num';
+          if (c.t === 'min') cl = 'card-minus';
+          else if (c.t === 'div2' || c.t === 'mul2' || c.t === 'sqrt') cl = 'card-calc';
+          else if (c.t === 'fever') cl = 'card-fever';
+          else if (c.t !== 'num') cl = 'card-special';
+
+          div.className += ` ${cl}`;
+          div.innerHTML = `
+            <div class="card-corner-badge">${c.l}</div>
             <div class="card-val">${c.l}</div>
-            <span style="font-size:9px; text-align:right; opacity:0.85;">手札</span>
           `;
         }
 

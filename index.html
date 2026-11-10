@@ -7,112 +7,67 @@
   <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
   <style>
     :root {
-      --bg: #fdfbf7;
-      --card-bg: #ffffff;
-      --primary-blue: #0284c7;
-      --primary-green: #059669;
-      --primary-orange: #ea580c;
-      --text-main: #0f172a;
-      --text-sub: #64748b;
-      --danger: #dc2626;
-      --fever-color: #ec4899;
-      --border: #e2e8f0;
+      --bg: #fdfbf7; --card-bg: #fff; --primary-blue: #0284c7; --primary-green: #059669;
+      --primary-orange: #ea580c; --text-main: #0f172a; --text-sub: #64748b; --danger: #dc2626; --border: #e2e8f0;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Segoe UI', Roboto, sans-serif; }
-    body { background-color: var(--bg); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; }
-
+    body { background: var(--bg); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; }
     header { width: 100%; max-width: 500px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; background: #fff; border-bottom: 1px solid var(--border); }
     .header-title { font-size: 16px; font-weight: 900; color: var(--primary-orange); }
     .btn-help { background: #f1f5f9; color: var(--text-sub); border: 1px solid var(--border); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: bold; }
-
-    .container { width: 100%; max-width: 500px; padding: 16px; display: flex; flex-direction: column; gap: 14px; flex: 1; position: relative; }
-    .app-title-big { text-align: center; font-size: 26px; font-weight: 900; color: var(--primary-orange); margin: 6px 0 12px 0; }
-    .panel { background: var(--card-bg); border-radius: 14px; padding: 16px; border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.03); display: flex; flex-direction: column; gap: 10px; }
+    .container { width: 100%; max-width: 500px; padding: 16px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+    .app-title-big { text-align: center; font-size: 26px; font-weight: 900; color: var(--primary-orange); margin: 6px 0 12px; }
+    .panel { background: #fff; border-radius: 14px; padding: 16px; border: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px; }
     .panel-title { font-size: 15px; font-weight: 800; color: var(--primary-blue); }
     .panel-title-green { color: var(--primary-green); }
-    .input-label { font-size: 12px; font-weight: 700; color: var(--text-main); }
     .input-box { width: 100%; padding: 12px 14px; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; font-size: 15px; outline: none; }
-    
     .btn-main-blue, .btn-main-green { width: 100%; padding: 13px; border-radius: 8px; color: #fff; font-weight: 800; border: none; cursor: pointer; font-size: 15px; }
-    .btn-main-blue { background: var(--primary-blue); }
-    .btn-main-green { background: var(--primary-green); }
+    .btn-main-blue { background: var(--primary-blue); } .btn-main-green { background: var(--primary-green); }
     .btn-copy { background: #ffedd5; color: #c2410c; border: 1px solid #fed7aa; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 800; }
-
-    .story-card { background: #fff; border: 2px dashed #fed7aa; border-radius: 16px; padding: 18px 16px; line-height: 1.8; font-size: 13.5px; color: #334155; }
-    .story-title { font-size: 15px; font-weight: 900; color: var(--primary-orange); margin-bottom: 10px; }
-    .story-text p { margin-bottom: 8px; }
-    .story-highlight { font-weight: 800; color: #c2410c; background: #fff7ed; padding: 1px 5px; border-radius: 4px; }
-
-    .board-center { padding: 14px 16px; background: #fff; border-radius: 16px; border: 2px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.04); text-align: center; }
-    .board-center.fever-mode { border-color: var(--fever-color); background: #fdf2f8; box-shadow: 0 0 18px rgba(236,72,153,0.3); }
-    .board-split { display: flex; align-items: center; justify-content: space-around; margin: 10px 0; gap: 12px; }
-    .board-left, .board-right { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-    
-    .limit-badge { font-size: 12px; font-weight: 800; padding: 3px 10px; border-radius: 12px; background: #fee2e2; color: #b91c1c; display: inline-block; margin-bottom: 2px; }
+    .story-card { background: #fff; border: 2px dashed #fed7aa; border-radius: 16px; padding: 16px; line-height: 1.8; font-size: 13px; color: #334155; }
+    .story-title { font-size: 14px; font-weight: 900; color: var(--primary-orange); margin-bottom: 8px; }
+    .story-highlight { font-weight: 800; color: #c2410c; background: #fff7ed; padding: 1px 4px; border-radius: 4px; }
+    .board-center { padding: 14px 16px; background: #fff; border-radius: 16px; border: 2px solid var(--border); text-align: center; }
+    .board-center.fever-mode { border-color: #ec4899; background: #fdf2f8; box-shadow: 0 0 18px rgba(236,72,153,0.3); }
+    .board-split { display: flex; align-items: center; justify-content: space-around; margin: 8px 0; gap: 12px; }
+    .board-left, .board-right { flex: 1; display: flex; flex-direction: column; align-items: center; }
+    .limit-badge { font-size: 12px; font-weight: 800; padding: 3px 10px; border-radius: 12px; background: #fee2e2; color: #b91c1c; display: inline-block; }
     .limit-badge.fever { background: #fbcfe8; color: #be185d; animation: pulse 1s infinite alternate; }
     @keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.06); } }
-
-    .counter-value { font-size: 60px; font-weight: 900; line-height: 1; margin: 4px 0; }
-    .counter-normal { color: var(--primary-orange); }
-    .counter-danger { color: var(--danger); }
+    .counter-value { font-size: 58px; font-weight: 900; line-height: 1; margin: 4px 0; }
+    .counter-normal { color: var(--primary-orange); } .counter-danger { color: var(--danger); }
     .status-badge { display: inline-block; padding: 4px 10px; border-radius: 14px; font-size: 12px; background: #f1f5f9; font-weight: 700; color: var(--text-sub); }
-
-    .table-card-box {
-      width: 86px;
-      height: 120px;
-      border-radius: 10px;
-      border: 2px solid #cbd5e1;
-      background: #ffffff;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
+    .table-card-box { width: 86px; height: 120px; border-radius: 10px; border: 2px solid #cbd5e1; background: #fff; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
     .table-card-box.card-pop { animation: popIn 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28); }
-    @keyframes popIn { 0% { transform: scale(0.8); } 70% { transform: scale(1.08); } 100% { transform: scale(1); } }
+    @keyframes popIn { 0% { transform: scale(0.8); } 100% { transform: scale(1); } }
     .player-tag { font-size: 11px; font-weight: 800; color: #475569; background: #f1f5f9; padding: 2px 8px; border-radius: 10px; margin-top: 4px; max-width: 120px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
     .players-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
     .player-card { background: #fff; padding: 10px 8px; border-radius: 10px; border: 2px solid var(--border); text-align: center; }
     .player-card.active { border-color: var(--primary-orange); background: #fff7ed; transform: scale(1.02); }
+    .player-card.dead { background: #f1f5f9; opacity: 0.6; }
     .log-box { font-size: 13px; color: #334155; background: #fff; padding: 10px; border-radius: 8px; border: 1px solid var(--border); text-align: center; min-height: 42px; display: flex; align-items: center; justify-content: center; font-weight: 700; }
-
-    .hand-container { position: sticky; bottom: 0; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); padding: 10px 0 16px 0; border-top: 1px solid var(--border); z-index: 10; }
+    .hand-container { position: sticky; bottom: 0; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); padding: 10px 0 16px; border-top: 1px solid var(--border); z-index: 10; }
     .hand-cards { display: flex; justify-content: center; gap: 8px; overflow-x: auto; padding: 4px; }
     .game-card { width: 96px; height: 136px; border-radius: 12px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 4px; font-weight: 800; cursor: pointer; border: 2px solid rgba(0,0,0,0.1); box-shadow: 0 4px 8px rgba(0,0,0,0.08); position: relative; background: #fff; }
     .game-card:hover:not(.disabled) { transform: translateY(-6px); }
     .game-card.disabled { opacity: 0.4; cursor: not-allowed; }
-    
     .card-corner-badge { position: absolute; top: 4px; right: 4px; background: rgba(15, 23, 42, 0.88); color: #fff; font-size: 11px; font-weight: 900; padding: 2px 6px; border-radius: 6px; z-index: 3; }
-    .card-corner-badge.badge-calc { background: #7c3aed; }
-    .card-corner-badge.badge-fever { background: #ec4899; }
-    .card-corner-badge.badge-danger { background: #dc2626; }
-
+    .card-corner-badge.badge-calc { background: #7c3aed; } .card-corner-badge.badge-fever { background: #ec4899; } .card-corner-badge.badge-danger { background: #dc2626; }
     .card-img-square-box { width: 86px; height: 86px; display: flex; justify-content: center; align-items: center; margin-top: 14px; }
     .card-inner-img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; border-radius: 8px; }
-
-    .card-num { background-color: #2563eb; color: #fff; }
-    .card-minus { background-color: #059669; color: #fff; }
-    .card-special { background-color: #d97706; color: #fff; }
-    .card-calc { background-color: #7c3aed; color: #fff; }
+    .card-num { background-color: #2563eb; color: #fff; } .card-minus { background-color: #059669; color: #fff; }
+    .card-special { background-color: #d97706; color: #fff; } .card-calc { background-color: #7c3aed; color: #fff; }
     .card-fever { background: linear-gradient(135deg, #ec4899, #f43f5e, #fbbf24); color: #fff; border: 2px solid #fff; }
     .card-val { font-size: 24px; text-align: center; margin: auto 0; font-weight: 900; }
-
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; padding: 16px; z-index: 100; }
     .modal-box { background: #fff; max-width: 440px; width: 100%; border-radius: 14px; padding: 20px; max-height: 85vh; overflow-y: auto; }
     .modal-box h3 { color: var(--primary-orange); margin-bottom: 12px; }
     .modal-box p, .modal-box li { font-size: 13px; color: var(--text-main); line-height: 1.6; margin-bottom: 6px; }
-    .modal-box ul { padding-left: 18px; margin-bottom: 14px; }
     .btn-close { width: 100%; padding: 10px; background: #64748b; color: #fff; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
-
-    /* 演出レイヤー */
     .cutin-overlay { position: fixed; inset: 0; z-index: 999; display: none; align-items: center; justify-content: center; flex-direction: column; pointer-events: none; overflow: hidden; }
     .fever-bg { background: radial-gradient(circle, rgba(236,72,153,0.92) 0%, rgba(17,24,39,0.95) 100%); }
     .speed-lines { position: absolute; inset: 0; background: repeating-conic-gradient(from 0deg, transparent 0deg 8deg, rgba(255,255,255,0.12) 8deg 15deg); animation: spinLines 3s linear infinite; }
     @keyframes spinLines { 0% { transform: scale(1.5) rotate(0deg); } 100% { transform: scale(1.5) rotate(360deg); } }
-
     .brain-wrapper { position: relative; width: 180px; height: 160px; display: flex; justify-content: center; align-items: center; margin-bottom: 15px; }
     .brain-half { width: 85px; height: 140px; background: #f472b6; border: 4px solid #fff; position: absolute; transition: transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28); }
     .brain-left { border-radius: 70px 10px 10px 70px; left: 5px; transform-origin: left bottom; }
@@ -121,35 +76,17 @@
     .brain-wrapper.open .brain-right { transform: translateX(60px) rotate(35deg); }
     .brain-cat-core { font-size: 64px; position: absolute; opacity: 0; transform: scale(0.2); transition: all 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28); }
     .brain-wrapper.open .brain-cat-core { opacity: 1; transform: scale(1.2); }
-
-    .fever-title { font-size: 34px; font-weight: 900; color: #fff; text-shadow: 0 0 16px #ec4899; text-align: center; transform: scale(0.7); opacity: 0; transition: all 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28); }
-    .fever-subtitle { font-size: 20px; font-weight: 800; color: #fde047; margin-top: 4px; letter-spacing: 2px; }
+    .fever-title { font-size: 34px; font-weight: 900; color: #fff; text-shadow: 0 0 16px #ec4899; text-align: center; transform: scale(0.7); opacity: 0; transition: all 0.3s; }
     .fever-title.show { transform: scale(1); opacity: 1; }
-
     .gameover-bg { background: rgba(10, 15, 29, 0.96); animation: redFlash 0.35s ease-out; }
     @keyframes redFlash { 0% { background: rgba(220, 38, 38, 0.95); } 100% { background: rgba(10, 15, 29, 0.96); } }
     .shake-screen { animation: screenShake 0.45s ease-in-out; }
-    @keyframes screenShake {
-      0%, 100% { transform: translate(0, 0); }
-      20% { transform: translate(-12px, 10px) rotate(-1.5deg); }
-      40% { transform: translate(12px, -10px) rotate(1.5deg); }
-      60% { transform: translate(-8px, 6px); }
-      80% { transform: translate(8px, -6px); }
-    }
-    .collapse-img-box {
-      width: 100%; display: flex; justify-content: center; align-items: center; margin-bottom: 12px;
-      animation: zoomBang 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
-    }
+    @keyframes screenShake { 0%, 100% { transform: translate(0, 0); } 20% { transform: translate(-10px, 8px) rotate(-1deg); } 40% { transform: translate(10px, -8px) rotate(1deg); } }
+    .collapse-img-box { width: 100%; display: flex; justify-content: center; align-items: center; margin-bottom: 12px; animation: zoomBang 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards; }
     @keyframes zoomBang { 0% { transform: scale(0.35); opacity: 0; } 70% { transform: scale(1.15); opacity: 1; } 100% { transform: scale(1); } }
-    .collapse-asset-img {
-      width: 88%; max-width: 420px; max-height: 250px; object-fit: contain;
-      filter: drop-shadow(0 0 5px #ffffff) drop-shadow(0 0 16px #ef4444) drop-shadow(0 0 32px #dc2626);
-    }
+    .collapse-asset-img { width: 88%; max-width: 420px; max-height: 250px; object-fit: contain; filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 16px #ef4444) drop-shadow(0 0 32px #dc2626); }
     .collapse-title { font-size: 52px; font-weight: 900; color: #ef4444; text-shadow: 0 0 25px rgba(239,68,68,0.9), 0 0 10px #fff; text-align: center; }
-    .collapse-loser-box {
-      background: rgba(0, 0, 0, 0.45); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px;
-      padding: 10px 20px; text-align: center; margin-top: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
+    .collapse-loser-box { background: rgba(0, 0, 0, 0.45); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 10px 20px; text-align: center; margin-top: 4px; }
     .collapse-loser { color: #fde047; font-size: 20px; font-weight: 900; }
     .collapse-desc { font-size: 13px; color: #cbd5e1; font-weight: 700; margin-top: 3px; }
   </style>
@@ -158,13 +95,12 @@
   <div id="feverOverlay" class="cutin-overlay fever-bg">
     <div class="speed-lines"></div>
     <div id="brainBox" class="brain-wrapper">
-      <div class="brain-half brain-left"></div>
-      <div class="brain-half brain-right"></div>
+      <div class="brain-half brain-left"></div><div class="brain-half brain-right"></div>
       <div class="brain-cat-core">🐱✨</div>
     </div>
     <div id="feverTitleBox" class="fever-title">
       <div id="feverImgContainer"></div>
-      <div id="feverDefaultText">煩悩暴走‼️<br><span class="fever-subtitle">NYANKO FEVER!! (上限 222)</span></div>
+      <div id="feverDefaultText">煩悩暴走‼️<br><span style="font-size:20px; color:#fde047; letter-spacing:2px;">NYANKO FEVER!! (上限 222)</span></div>
     </div>
   </div>
 
@@ -173,9 +109,9 @@
     <div id="collapseDefaultText" class="collapse-title">煩悩崩壊</div>
     <div class="collapse-loser-box">
       <div id="collapseLoserName" class="collapse-loser"></div>
-      <div class="collapse-desc">煩悩上限を超過しました！</div>
+      <div id="collapseDescText" class="collapse-desc">煩悩上限を超過しました！</div>
     </div>
-    <div style="font-size: 12px; color: #94a3b8; margin-top: 14px;">まもなく自動で次のゲームが始まります...</div>
+    <div id="collapseSubNotice" style="font-size: 12px; color: #94a3b8; margin-top: 14px;">まもなく自動で次のラウンドが始まります...</div>
   </div>
 
   <header>
@@ -183,27 +119,18 @@
     <button class="btn-help" onclick="toggleModal('rulesModal')">ルール説明</button>
   </header>
 
-  <div class="container" id="mainContainer">
+  <div class="container">
     <div id="lobbyScreen" style="display: flex; flex-direction: column; gap: 14px;">
       <h1 class="app-title-big">🐈にゃんこ煩悩大暴走‼️</h1>
-
       <div class="panel">
         <div class="panel-title">プレイヤー情報</div>
-        <div>
-          <div class="input-label" style="margin-bottom: 4px;">ニックネーム:</div>
-          <input type="text" id="playerNameInput" class="input-box" placeholder="ニックネームを入力" maxlength="8">
-        </div>
+        <input type="text" id="playerNameInput" class="input-box" placeholder="ニックネームを入力" maxlength="8">
       </div>
-
       <div class="panel">
         <div class="panel-title">ルームに参加</div>
-        <div>
-          <div class="input-label" style="margin-bottom: 4px;">ルームID:</div>
-          <input type="text" id="roomCodeInput" class="input-box" placeholder="招待リンクで自動入力されます" maxlength="4">
-        </div>
+        <input type="text" id="roomCodeInput" class="input-box" placeholder="招待リンクで自動入力されます" maxlength="4">
         <button id="btnJoinRoom" class="btn-main-blue" onclick="joinRoom()">ルームに参加</button>
       </div>
-
       <div class="panel">
         <div class="panel-title panel-title-green">新規ルームを作成</div>
         <button id="btnCreateRoom" class="btn-main-green" onclick="createRoom()">新規ルームを作成</button>
@@ -216,18 +143,15 @@
           <div style="font-size: 14px; font-weight: bold;">ルーム: <strong id="displayRoomCode" style="color: var(--primary-orange); font-size: 20px;"></strong></div>
           <button id="btnCopyInvite" class="btn-copy" onclick="copyInviteUrl()">🔗 招待URLをコピー</button>
         </div>
-        <button id="btnStartGame" class="btn-main-green" style="width: auto; padding: 8px 20px; margin: 0; font-size: 15px; font-weight: 900; display: none;" onclick="startGame()">▶︎ ゲーム開始</button>
+        <button id="btnStartGame" class="btn-main-green" style="width: auto; padding: 8px 20px; font-size: 15px; font-weight: 900; display: none;" onclick="startGame()">▶︎ ゲーム開始</button>
+        <button id="btnRestartGame" style="width: auto; padding: 8px 20px; font-size: 15px; font-weight: 900; display: none; background: #ea580c; color: #fff; border: none; border-radius: 8px; cursor: pointer;" onclick="restartFullGame()">🔄 もう一度全員で遊ぶ</button>
       </div>
 
       <div id="waitingStoryBox" class="story-card">
         <div class="story-title">🐾 にゃんこ煩悩大暴走のものがたり</div>
-        <div class="story-text">
-          <p>あなたは人間です。<br>ある日、あなたは一匹の猫に出会いました。</p>
-          <p>その日から、あなたの脳内は猫でいっぱいに。<br>寝ても覚めても猫。ごはんを食べても猫。何をしていても猫、猫、猫……。</p>
-          <p>あふれ出す猫への愛。<span class="story-highlight">膨れ上がる煩悩。</span></p>
-          <p>あなたは煩悩の数が<strong>108を超えないよう</strong>、カードを使ってうまくコントロールしなければなりません。</p>
-          <p style="font-size: 12.5px; color: var(--text-sub); margin-top: 10px;">ただし、猫のかわいさは時に理性の限界を超えることも……？<br><strong>さあ、あなたは煩悩を抑えきれるでしょうか？</strong></p>
-        </div>
+        <p>あなたは人間です。ある日、あなたは一匹の猫に出会いました。<br>その日から、あなたの脳内は猫でいっぱいに。寝ても覚めても猫。ごはんを食べても猫。何をしていても猫、猫、猫……。</p>
+        <p style="margin: 6px 0;">あふれ出す猫への愛。<span class="story-highlight">膨れ上がる煩悩。</span><br>煩悩が<strong>108を超えないよう</strong>コントロールしなければなりません。<br><strong>🧠（理性）は3つ。</strong>無くなったら煩悩に完全敗北します！</p>
+        <p style="font-size: 12px; color: var(--text-sub);">猫のかわいさは理性の限界を超えることも……？<strong>さあ、煩悩を抑えきれるでしょうか？</strong></p>
       </div>
 
       <div id="boardCenter" class="board-center" style="display: none;">
@@ -249,9 +173,8 @@
       </div>
 
       <div id="logBox" class="log-box">プレイヤーを待っています...</div>
-      
       <div>
-        <div style="font-size: 12px; font-weight: 800; color: var(--text-sub); margin-bottom: 6px;">参加者リスト</div>
+        <div style="font-size: 12px; font-weight: 800; color: var(--text-sub); margin-bottom: 6px;">参加者リスト（🧠残機）</div>
         <div id="playersList" class="players-grid"></div>
       </div>
 
@@ -265,30 +188,9 @@
   <div id="rulesModal" class="modal-overlay">
     <div class="modal-box">
       <h3>【🐈にゃんこ煩悩大暴走‼️】ルール</h3>
-      <p style="background: #fff7ed; padding: 10px; border-radius: 8px; font-size: 12.5px; line-height: 1.6; border: 1px solid #fed7aa; margin-bottom: 12px;">
-        ある日出会った猫のかわいさで脳内が猫だらけに！あふれる愛と煩悩をコントロールし、<strong>煩悩上限（通常108）を超えないようにする</strong>カードゲームです。
-      </p>
-      <ul>
-        <li>手札は3枚。カードを1枚出すと山札から1枚自動補充されます。</li>
-        <li><strong>誰か1人が上限を超えた瞬間、ゲームオーバー（煩悩崩壊）</strong>となり、全員そのまま自動で次のゲームが開始されます。</li>
-      </ul>
-      <h4 style="color: var(--primary-orange); margin: 8px 0 4px 0;">オリジナル追加カード</h4>
-      <ul>
-        <li><strong>÷2:</strong> 現在の合計値を2で割る（四捨五入）</li>
-        <li><strong>×2:</strong> 現在の合計値を2倍にする</li>
-        <li><strong>x²:</strong> 現在の合計値を二乗（2乗）する超大技！</li>
-        <li><strong>√:</strong> 現在の合計値の平方根（四捨五入）</li>
-        <li><strong>+29 / +77:</strong> 大幅加算カード</li>
-        <li><strong>NYANKO FEVER:</strong> ゲーム開始時50%の確率で混入。発動すると<strong>上限が108から【222】に大暴走！</strong></li>
-      </ul>
-      <h4 style="color: var(--primary-blue); margin: 8px 0 4px 0;">基本カード</h4>
-      <ul>
-        <li><strong>+1〜+10 / -1, -10:</strong> 加算・減算（0未満にはなりません）</li>
-        <li><strong>108:</strong> 合計を一気に煩悩上限の108にする</li>
-        <li><strong>PASS:</strong> 数字を変えずに次へ / <strong>TURN:</strong> 回り順反転</li>
-        <li><strong>SHOT:</strong> 好きな相手を指名 / <strong>DOUBLE:</strong> 次の人が2枚出し</li>
-      </ul>
-      <button class="btn-close" onclick="toggleModal('rulesModal')">閉じる</button>
+      <p style="background: #fff7ed; padding: 8px; border-radius: 8px; font-size: 12px; margin-bottom: 10px;">猫のかわいさで脳内が猫だらけ！煩悩上限（通常108）を超えないようにするゲームです。</p>
+      <p>・<strong>🧠残機は3つ：</strong>上限オーバーで🧠を1つ失い、誰か1人でも🧠が0になったらゲームセット！<br>・<strong>負けた人からスタート：</strong>前ラウンドで負けた人から手番開始！<br>・<strong>手札3枚：</strong>1枚出すと山札から自動補充。</p>
+      <button class="btn-close" style="margin-top:12px;" onclick="toggleModal('rulesModal')">閉じる</button>
     </div>
   </div>
 
@@ -301,23 +203,11 @@
   </div>
 
   <script>
-    /* ★ +77（2枚） と x²（1枚） を追加！ */
     const DECK_CONFIG = {
       numbers_1_to_10_each: 3,
       counts: {
-        '+29': 3,
-        '+77': 2,    // ★ 77加算
-        'x²': 1,     // ★ 二乗
-        '-1': 3,
-        '-10': 3,
-        '108': 3,
-        'PASS': 3,
-        'TURN': 3,
-        'SHOT': 3,
-        'DOUBLE': 3,
-        '÷2': 2,
-        '×2': 2,
-        '√': 1,
+        '+29': 3, '+77': 2, 'x²': 1, '-1': 3, '-10': 3, '108': 3,
+        'PASS': 3, 'TURN': 3, 'SHOT': 3, 'DOUBLE': 3, '÷2': 2, '×2': 2, '√': 1,
         '+20': 0, '+30': 0, '+40': 0, '+50': 0
       },
       fever: { probability: 0.5, count: 1 }
@@ -327,52 +217,21 @@
       cutinFever: './bonno_bousou.PNG',
       cutinGameOver: './bonno_houkai.PNG',
       cards: {
-        '÷2': './card_div2.PNG',
-        '×2': './card_mul2.PNG',
-        'x²': '',             // 将来画像が用意できたらパスを指定
-        '√': './card_sprt.PNG',
-        '+29': './card_29.PNG',
-        '+77': './card_77.PNG',
-        'NYANKO FEVER': './nyanko_fever.PNG',
-        '108': './card_108.PNG',
-        'PASS': './card_pass.PNG',
-        'TURN': './card_trun.PNG',
-        'SHOT': './card_shot.PNG',
-        'DOUBLE': './card_double.PNG',
-        '-1': './card_minus1.PNG',
-        '-10': './card_minus10.PNG',
-        '+1': './card_1.PNG',
-        '+2': './card_2.png',
-        '+3': './card_3.PNG',
-        '+4': './card_4.png',
-        '+5': './card_5.PNG',
-        '+6': '',
-        '+7': './card_7.PNG',
-        '+8': './card_8.PNG',
-        '+9': './card_9.PNG',
-        '+10': './card_10.PNG'
+        '÷2': './card_div2.PNG', '×2': './card_mul2.PNG', 'x²': '', '√': './card_sprt.PNG',
+        '+29': './card_29.PNG', '+77': './card_77.PNG', 'NYANKO FEVER': './nyanko_fever.PNG',
+        '108': './card_108.PNG', 'PASS': './card_pass.PNG', 'TURN': './card_trun.PNG',
+        'SHOT': './card_shot.PNG', 'DOUBLE': './card_double.PNG', '-1': './card_minus1.PNG',
+        '-10': './card_minus10.PNG', '+1': './card_1.PNG', '+2': './card_2.png',
+        '+3': './card_3.PNG', '+4': './card_4.png', '+5': './card_5.PNG', '+6': '',
+        '+7': './card_7.PNG', '+8': './card_8.PNG', '+9': './card_9.PNG', '+10': './card_10.PNG'
       }
     };
 
-    let peer = null, isHost = false, myId = null, myName = '';
-    let hostConn = null, guestConns = {};
-    let autoNextGameTimer = null;
-
+    let peer = null, isHost = false, myId = null, myName = '', hostConn = null, guestConns = {}, autoNextGameTimer = null;
     let room = {
-      status: 'waiting',
-      code: '',
-      currentTotal: 0,
-      maxBonno: 108,
-      direction: 1,
-      currentTurn: 0,
-      players: [],
-      deck: [],
-      discardPile: [],
-      lastAction: '',
-      loser: null,
-      pendingDouble: false,
-      playerRemainingPlays: 1,
-      lastCard: null
+      status: 'waiting', code: '', currentTotal: 0, maxBonno: 108, direction: 1, currentTurn: 0,
+      players: [], deck: [], discardPile: [], lastAction: '', loser: null, pendingDouble: false,
+      playerRemainingPlays: 1, lastCard: null, lastLoserIdx: null
     };
     let pendingShotIdx = null;
 
@@ -383,45 +242,24 @@
     }
 
     function copyInviteUrl() {
-      const inviteUrl = getInviteUrl();
+      const url = getInviteUrl();
       const btn = document.getElementById('btnCopyInvite');
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(inviteUrl).then(showCopied).catch(fallbackCopy);
-      } else {
-        fallbackCopy();
+      navigator.clipboard?.writeText ? navigator.clipboard.writeText(url).then(done) : fallback(url);
+      function done() {
+        btn.innerText = '✅ コピー完了！'; btn.style.background = '#dcfce7'; btn.style.color = '#15803d';
+        setTimeout(() => { btn.innerText = '🔗 招待URLをコピー'; btn.style.background = '#ffedd5'; btn.style.color = '#c2410c'; }, 2000);
       }
-      function showCopied() {
-        const origText = btn.innerText;
-        btn.innerText = '✅ コピー完了！';
-        btn.style.background = '#dcfce7';
-        btn.style.color = '#15803d';
-        setTimeout(() => {
-          btn.innerText = origText;
-          btn.style.background = '#ffedd5';
-          btn.style.color = '#c2410c';
-        }, 2000);
-      }
-      function fallbackCopy() {
-        const tempInput = document.createElement('input');
-        tempInput.value = inviteUrl;
-        document.body.appendChild(tempInput);
-        tempInput.select();
-        document.execCommand('copy');
-        document.body.removeChild(tempInput);
-        showCopied();
+      function fallback(t) {
+        const inp = document.createElement('input'); inp.value = t; document.body.appendChild(inp);
+        inp.select(); document.execCommand('copy'); document.body.removeChild(inp); done();
       }
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      const params = new URLSearchParams(window.location.search);
-      const roomParam = params.get('room');
-      if (roomParam) {
-        const codeInput = document.getElementById('roomCodeInput');
-        if (codeInput) {
-          codeInput.value = roomParam;
-          codeInput.style.background = '#eff6ff';
-          codeInput.style.borderColor = 'var(--primary-blue)';
-        }
+      const p = new URLSearchParams(window.location.search).get('room');
+      if (p) {
+        const el = document.getElementById('roomCodeInput');
+        if (el) { el.value = p; el.style.background = '#eff6ff'; }
         document.getElementById('playerNameInput')?.focus();
       }
     });
@@ -433,391 +271,237 @@
 
     function genDeck() {
       let d = [];
-      const eachNum = DECK_CONFIG.numbers_1_to_10_each || 0;
       for (let i = 1; i <= 10; i++) {
-        for (let j = 0; j < eachNum; j++) d.push({ t: 'num', v: i, l: `+${i}` });
+        for (let j = 0; j < (DECK_CONFIG.numbers_1_to_10_each || 3); j++) d.push({ t: 'num', v: i, l: `+${i}` });
       }
-
-      const cardMaster = {
-        '+29': { t: 'num', v: 29, l: '+29' },
-        '+77': { t: 'num', v: 77, l: '+77' }, // ★ +77
-        'x²':  { t: 'sqr', v: 0, l: 'x²' },   // ★ 二乗
-        '+20': { t: 'num', v: 20, l: '+20' },
-        '+30': { t: 'num', v: 30, l: '+30' },
-        '+40': { t: 'num', v: 40, l: '+40' },
-        '+50': { t: 'num', v: 50, l: '+50' },
-        '-1': { t: 'min', v: -1, l: '-1' },
-        '-10': { t: 'min', v: -10, l: '-10' },
-        '108': { t: '108', v: 108, l: '108' },
-        'PASS': { t: 'pass', v: 0, l: 'PASS' },
-        'TURN': { t: 'turn', v: 0, l: 'TURN' },
-        'SHOT': { t: 'shot', v: 0, l: 'SHOT' },
-        'DOUBLE': { t: 'dbl', v: 0, l: 'DOUBLE' },
-        '÷2': { t: 'div2', v: 0, l: '÷2' },
-        '×2': { t: 'mul2', v: 0, l: '×2' },
+      const m = {
+        '+29': { t: 'num', v: 29, l: '+29' }, '+77': { t: 'num', v: 77, l: '+77' }, 'x²': { t: 'sqr', v: 0, l: 'x²' },
+        '-1': { t: 'min', v: -1, l: '-1' }, '-10': { t: 'min', v: -10, l: '-10' }, '108': { t: '108', v: 108, l: '108' },
+        'PASS': { t: 'pass', v: 0, l: 'PASS' }, 'TURN': { t: 'turn', v: 0, l: 'TURN' }, 'SHOT': { t: 'shot', v: 0, l: 'SHOT' },
+        'DOUBLE': { t: 'dbl', v: 0, l: 'DOUBLE' }, '÷2': { t: 'div2', v: 0, l: '÷2' }, '×2': { t: 'mul2', v: 0, l: '×2' },
         '√': { t: 'sqrt', v: 0, l: '√' }
       };
-
-      Object.keys(DECK_CONFIG.counts).forEach(label => {
-        const count = DECK_CONFIG.counts[label] || 0;
-        const master = cardMaster[label];
-        if (master && count > 0) {
-          for (let j = 0; j < count; j++) d.push({ ...master });
-        }
+      Object.keys(DECK_CONFIG.counts).forEach(k => {
+        const c = DECK_CONFIG.counts[k] || 0;
+        if (m[k] && c > 0) for (let j = 0; j < c; j++) d.push({ ...m[k] });
       });
-
       if (Math.random() < DECK_CONFIG.fever.probability) {
-        for (let j = 0; j < (DECK_CONFIG.fever.count || 1); j++) {
-          d.push({ t: 'fever', v: 0, l: 'NYANKO FEVER' });
-        }
+        for (let j = 0; j < (DECK_CONFIG.fever.count || 1); j++) d.push({ t: 'fever', v: 0, l: 'NYANKO FEVER' });
       }
-
       return d.sort(() => Math.random() - 0.5);
     }
 
     function createRoom() {
       myName = document.getElementById('playerNameInput').value.trim() || 'ホスト';
-      const btn = document.getElementById('btnCreateRoom');
-      btn.disabled = true;
-      btn.innerText = '作成中...';
-
+      const btn = document.getElementById('btnCreateRoom'); btn.disabled = true; btn.innerText = '作成中...';
       const code = Math.floor(1000 + Math.random() * 9000).toString();
-      isHost = true;
-      peer = new Peer('lmt101-' + code);
-
-      peer.on('open', (id) => {
-        myId = id;
-        room.code = code;
-        room.players = [{ id: myId, name: myName, hand: [] }];
+      isHost = true; peer = new Peer('lmt101-' + code);
+      peer.on('open', id => {
+        myId = id; room.code = code; room.players = [{ id: myId, name: myName, lives: 3, hand: [] }];
         peer.on('connection', conn => {
-          conn.on('data', data => handleHostAction(conn, data));
+          conn.on('data', d => handleHostAction(conn, d));
           conn.on('close', () => { delete guestConns[conn.peer]; syncState(); });
         });
-        showGame(code);
-        syncState();
+        showGame(code); syncState();
       });
-
-      peer.on('error', () => {
-        alert('部屋の作成に失敗しました。もう一度お試しください。');
-        btn.disabled = false;
-        btn.innerText = '新規ルームを作成';
-      });
+      peer.on('error', () => { alert('作成に失敗しました'); btn.disabled = false; btn.innerText = '新規ルームを作成'; });
     }
 
     function joinRoom() {
       myName = document.getElementById('playerNameInput').value.trim() || 'ゲスト';
       const code = document.getElementById('roomCodeInput').value.trim();
       if (!code) return alert('ルームIDを入力してください');
-
-      const btn = document.getElementById('btnJoinRoom');
-      btn.disabled = true;
-      btn.innerText = '参加中...';
-
-      isHost = false;
-      peer = new Peer();
-
-      peer.on('open', (id) => {
-        myId = id;
-        hostConn = peer.connect('lmt101-' + code);
-
-        const timeout = setTimeout(() => {
-          if (!currentRoomState) {
-            alert('ホストに接続できませんでした。ルームIDを確認してください。');
-            btn.disabled = false;
-            btn.innerText = 'ルームに参加';
-          }
+      const btn = document.getElementById('btnJoinRoom'); btn.disabled = true; btn.innerText = '参加中...';
+      isHost = false; peer = new Peer();
+      peer.on('open', id => {
+        myId = id; hostConn = peer.connect('lmt101-' + code);
+        const tm = setTimeout(() => {
+          if (!currentRoomState) { alert('接続できませんでした'); btn.disabled = false; btn.innerText = 'ルームに参加'; }
         }, 6000);
-
-        hostConn.on('open', () => {
-          clearTimeout(timeout);
-          hostConn.send({ action: 'join', name: myName });
-          showGame(code);
+        hostConn.on('open', () => { clearTimeout(tm); hostConn.send({ action: 'join', name: myName }); showGame(code); });
+        hostConn.on('data', d => {
+          if (d.sync) updateUI(d.room, d.myHand);
+          if (d.effect === 'fever') playFeverAnimation();
+          if (d.effect === 'gameover') playGameOverAnimation(d.loserName, d.isMatchOver);
         });
-
-        hostConn.on('data', data => {
-          if (data.sync) updateUI(data.room, data.myHand);
-          if (data.effect === 'fever') playFeverAnimation();
-          if (data.effect === 'gameover') playGameOverAnimation(data.loserName);
-        });
-
         hostConn.on('close', () => alert('ホストが切断しました'));
       });
-
-      peer.on('error', () => {
-        alert('部屋が見つかりません。ルームIDを確認してください。');
-        btn.disabled = false;
-        btn.innerText = 'ルームに参加';
-      });
+      peer.on('error', () => { alert('部屋が見つかりません'); btn.disabled = false; btn.innerText = 'ルームに参加'; });
     }
 
-    function handleHostAction(conn, data) {
-      if (data.action === 'join') {
+    function handleHostAction(conn, d) {
+      if (d.action === 'join') {
         guestConns[conn.peer] = conn;
-        const existingIdx = room.players.findIndex(p => p.id === conn.peer);
-        if (existingIdx !== -1) {
-          room.players[existingIdx].name = data.name;
-        } else {
-          room.players.push({ id: conn.peer, name: data.name, hand: [] });
-          room.lastAction = `${data.name} が参加しました`;
-        }
+        const ex = room.players.findIndex(p => p.id === conn.peer);
+        if (ex !== -1) room.players[ex].name = d.name;
+        else { room.players.push({ id: conn.peer, name: d.name, lives: 3, hand: [] }); room.lastAction = `${d.name} が参加しました`; }
         syncState();
-      } else if (data.action === 'play') {
-        execPlay(data.playerId, data.cardIndex, data.targetId);
+      } else if (d.action === 'play') {
+        execPlay(d.playerId, d.cardIndex, d.targetId);
       }
     }
 
     function startGame() {
-      if (!isHost) return;
-      if (room.players.length < 2) return alert('対戦には最低2人必要です (推奨3〜7人)');
-
+      if (!isHost || room.players.length < 2) return alert('対戦には最低2人必要です');
       for (let i = room.players.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [room.players[i], room.players[j]] = [room.players[j], room.players[i]];
       }
+      room.players.forEach(p => p.lives = 3);
+      room.lastLoserIdx = null;
+      startNewRound();
+    }
 
+    function restartFullGame() {
+      if (!isHost) return;
+      room.players.forEach(p => p.lives = 3);
+      room.lastLoserIdx = null;
       startNewRound();
     }
 
     function startNewRound() {
-      room.status = 'playing';
-      room.deck = genDeck();
-      room.discardPile = [];
-      room.currentTotal = 0;
-      room.maxBonno = 108;
-      room.direction = 1;
-      room.currentTurn = 0;
-      room.pendingDouble = false;
-      room.playerRemainingPlays = 1;
-      room.loser = null;
-      room.lastCard = null;
-
-      room.players.forEach(p => {
-        p.hand = [room.deck.pop(), room.deck.pop(), room.deck.pop()];
-      });
-
-      room.lastAction = `新規ゲーム開始！${room.players[0].name} の手番です (上限: 108)`;
+      room.status = 'playing'; room.deck = genDeck(); room.discardPile = [];
+      room.currentTotal = 0; room.maxBonno = 108; room.direction = 1;
+      room.currentTurn = (room.lastLoserIdx !== null && room.players[room.lastLoserIdx]) ? room.lastLoserIdx : 0;
+      room.pendingDouble = false; room.playerRemainingPlays = 1; room.loser = null; room.lastCard = null;
+      room.players.forEach(p => { p.hand = [room.deck.pop(), room.deck.pop(), room.deck.pop()]; });
+      room.lastAction = `新規ラウンド開始！${room.players[room.currentTurn].name} の手番です (上限: 108)`;
       syncState();
     }
 
     function playCard(idx) {
       const card = (isHost ? room.players[room.currentTurn].hand : myLocalHand)[idx];
-      if (card.t === 'shot') {
-        pendingShotIdx = idx;
-        openShotModal();
-        return;
-      }
+      if (card.t === 'shot') { pendingShotIdx = idx; openShotModal(); return; }
       sendPlay(idx, null);
     }
 
     function openShotModal() {
-      const box = document.getElementById('shotTargetButtons');
-      box.innerHTML = '';
+      const box = document.getElementById('shotTargetButtons'); box.innerHTML = '';
       currentRoomState.players.forEach(p => {
-        if (p.id !== myId) {
-          const btn = document.createElement('button');
-          btn.className = 'btn-main-blue';
-          btn.textContent = `${p.name}`;
-          btn.onclick = () => {
-            sendPlay(pendingShotIdx, p.id);
-            toggleModal('shotModal');
-          };
+        if (p.id !== myId && p.lives > 0) {
+          const btn = document.createElement('button'); btn.className = 'btn-main-blue';
+          btn.textContent = `${p.name} (🧠${p.lives})`;
+          btn.onclick = () => { sendPlay(pendingShotIdx, p.id); toggleModal('shotModal'); };
           box.appendChild(btn);
         }
       });
       toggleModal('shotModal');
     }
 
-    function sendPlay(cardIdx, targetId) {
-      if (isHost) execPlay(myId, cardIdx, targetId);
-      else hostConn.send({ action: 'play', playerId: myId, cardIndex: cardIdx, targetId });
+    function sendPlay(cIdx, tId) {
+      if (isHost) execPlay(myId, cIdx, tId);
+      else hostConn.send({ action: 'play', playerId: myId, cardIndex: cIdx, targetId: tId });
     }
 
-    function execPlay(playerId, cardIdx, targetId) {
+    function execPlay(pId, cIdx, tId) {
       const p = room.players[room.currentTurn];
-      if (!p || p.id !== playerId || room.status !== 'playing') return;
-
-      const card = p.hand.splice(cardIdx, 1)[0];
-
-      if (room.deck.length === 0) {
-        room.deck = room.discardPile.sort(() => Math.random() - 0.5);
-        room.discardPile = [];
-      }
+      if (!p || p.id !== pId || room.status !== 'playing') return;
+      const card = p.hand.splice(cIdx, 1)[0];
+      if (room.deck.length === 0) { room.deck = room.discardPile.sort(() => Math.random() - 0.5); room.discardPile = []; }
       p.hand.push(room.deck.pop());
-
-      if (card.t !== 'fever') {
-        room.discardPile.push(card);
-      }
-
+      if (card.t !== 'fever') room.discardPile.push(card);
       room.lastCard = { ...card, playedBy: p.name };
 
       let justSetDouble = false;
-
-      if (card.t === 'num') {
-        room.currentTotal += card.v;
-        room.lastAction = `${p.name} が [${card.l}] (煩悩合計: ${room.currentTotal})`;
-      } else if (card.t === 'min') {
-        room.currentTotal = Math.max(0, room.currentTotal + card.v);
-        room.lastAction = `${p.name} が [${card.l}] (煩悩合計: ${room.currentTotal})`;
-      } else if (card.t === '108') {
-        room.currentTotal = 108;
-        room.lastAction = `${p.name} が [108] を発動！ 合計が108になりました！`;
-      } else if (card.t === 'pass') {
-        room.lastAction = `${p.name} が [PASS] を使用`;
-      } else if (card.t === 'turn') {
-        room.direction *= -1;
-        room.lastAction = `${p.name} が [TURN]！ 回り順が反転しました`;
-      } else if (card.t === 'shot') {
-        const tIdx = room.players.findIndex(x => x.id === targetId);
-        room.currentTurn = tIdx;
-        room.playerRemainingPlays = room.pendingDouble ? 2 : 1;
-        room.pendingDouble = false;
-        room.lastAction = `${p.name} が [SHOT] を ${room.players[tIdx].name} に発射！`;
-        syncState();
-        return;
+      if (card.t === 'num') { room.currentTotal += card.v; room.lastAction = `${p.name} が [${card.l}] (合計: ${room.currentTotal})`; }
+      else if (card.t === 'min') { room.currentTotal = Math.max(0, room.currentTotal + card.v); room.lastAction = `${p.name} が [${card.l}] (合計: ${room.currentTotal})`; }
+      else if (card.t === '108') { room.currentTotal = 108; room.lastAction = `${p.name} が [108]！ 合計が108になりました！`; }
+      else if (card.t === 'pass') { room.lastAction = `${p.name} が [PASS] を使用`; }
+      else if (card.t === 'turn') { room.direction *= -1; room.lastAction = `${p.name} が [TURN]！ 回り順反転`; }
+      else if (card.t === 'shot') {
+        const tIdx = room.players.findIndex(x => x.id === tId);
+        room.currentTurn = tIdx; room.playerRemainingPlays = room.pendingDouble ? 2 : 1; room.pendingDouble = false;
+        room.lastAction = `${p.name} が [SHOT] を ${room.players[tIdx].name} に発射！`; syncState(); return;
       } else if (card.t === 'dbl') {
-        justSetDouble = true;
-        room.pendingDouble = true;
-        room.lastAction = `${p.name} が [DOUBLE]！ 次の人は2枚出さなければなりません！`;
-      } else if (card.t === 'mul2') {
-        room.currentTotal = room.currentTotal * 2;
-        room.lastAction = `${p.name} が [×2]！ 煩悩が2倍 (${room.currentTotal}) に跳ね上がった！`;
-      } else if (card.t === 'sqr') {
-        // ★ 二乗効果
-        room.currentTotal = room.currentTotal * room.currentTotal;
-        room.lastAction = `${p.name} が [x²]！ 煩悩が二乗 (${room.currentTotal}) に大爆発！！`;
-      } else if (card.t === 'div2') {
-        room.currentTotal = Math.round(room.currentTotal / 2);
-        room.lastAction = `${p.name} が [÷2]！ 煩悩が半減 (${room.currentTotal}) に浄化された！`;
-      } else if (card.t === 'sqrt') {
-        room.currentTotal = Math.round(Math.sqrt(Math.max(0, room.currentTotal)));
-        room.lastAction = `${p.name} が [√]！ 煩悩が平方根 (${room.currentTotal}) に激減！`;
-      } else if (card.t === 'fever') {
-        room.maxBonno = 222;
-        room.lastAction = `💥 ${p.name} が [NYANKO FEVER] を発動！ 上限が【222】に大暴走‼️`;
-        broadcastEffect('fever');
-        playFeverAnimation();
+        justSetDouble = true; room.pendingDouble = true; room.lastAction = `${p.name} が [DOUBLE]！ 次の人は2枚出し！`;
+      } else if (card.t === 'mul2') { room.currentTotal *= 2; room.lastAction = `${p.name} が [×2]！ 合計2倍 (${room.currentTotal})`; }
+      else if (card.t === 'sqr') { room.currentTotal *= room.currentTotal; room.lastAction = `${p.name} が [x²]！ 二乗で大爆発 (${room.currentTotal})！`; }
+      else if (card.t === 'div2') { room.currentTotal = Math.round(room.currentTotal / 2); room.lastAction = `${p.name} が [÷2]！ 合計半減 (${room.currentTotal})`; }
+      else if (card.t === 'sqrt') { room.currentTotal = Math.round(Math.sqrt(Math.max(0, room.currentTotal))); room.lastAction = `${p.name} が [√]！ 平方根 (${room.currentTotal})`; }
+      else if (card.t === 'fever') {
+        room.maxBonno = 222; room.lastAction = `💥 ${p.name} が [NYANKO FEVER]！ 上限が【222】に大暴走‼️`;
+        broadcastEffect('fever'); playFeverAnimation();
       }
 
       if (room.currentTotal > room.maxBonno) {
-        room.status = 'ended';
-        room.loser = p.name;
-        room.lastAction = `💥 煩悩崩壊！ ${p.name} が上限(${room.maxBonno})を超えました！`;
-
-        broadcastEffect('gameover', { loserName: p.name });
-        playGameOverAnimation(p.name);
-        syncState();
-
-        clearTimeout(autoNextGameTimer);
-        autoNextGameTimer = setTimeout(() => {
-          if (room.status === 'ended') startNewRound();
-        }, 3800);
+        p.lives--; room.loser = p.name; room.lastLoserIdx = room.currentTurn;
+        const isMatchOver = (p.lives <= 0);
+        if (isMatchOver) { room.status = 'ended'; room.lastAction = `💀 煩悩崩壊！ ${p.name} の理性が尽きました（ゲームセット！）`; }
+        else { room.lastAction = `💥 煩悩崩壊！ ${p.name} が🧠を1つ失いました（残り: 🧠${p.lives}）`; }
+        broadcastEffect('gameover', { loserName: p.name, isMatchOver: isMatchOver });
+        playGameOverAnimation(p.name, isMatchOver); syncState();
+        if (!isMatchOver) {
+          clearTimeout(autoNextGameTimer);
+          autoNextGameTimer = setTimeout(() => { if (room.status === 'playing') startNewRound(); }, 3800);
+        }
         return;
       }
 
-      if (justSetDouble) {
-        room.playerRemainingPlays = 0;
-      } else {
-        room.playerRemainingPlays--;
-      }
-
-      if (room.playerRemainingPlays > 0) {
-        room.lastAction += ` (DOUBLE効果: あと1枚出してください)`;
-        syncState();
-        return;
-      }
-
-      moveToNextPlayer();
-      syncState();
+      if (justSetDouble) room.playerRemainingPlays = 0; else room.playerRemainingPlays--;
+      if (room.playerRemainingPlays > 0) { room.lastAction += ` (DOUBLE効果: あと1枚出してください)`; syncState(); return; }
+      moveToNextPlayer(); syncState();
     }
 
     function moveToNextPlayer() {
       const n = room.players.length;
       room.currentTurn = (room.currentTurn + room.direction + n) % n;
-      if (room.pendingDouble) {
-        room.playerRemainingPlays = 2;
-        room.pendingDouble = false;
-      } else {
-        room.playerRemainingPlays = 1;
-      }
+      if (room.pendingDouble) { room.playerRemainingPlays = 2; room.pendingDouble = false; }
+      else { room.playerRemainingPlays = 1; }
     }
 
-    function broadcastEffect(effectName, extra = {}) {
+    function broadcastEffect(eff, ext = {}) {
       if (!isHost) return;
-      Object.keys(guestConns).forEach(id => {
-        if (guestConns[id]) guestConns[id].send({ effect: effectName, ...extra });
-      });
+      Object.keys(guestConns).forEach(id => { if (guestConns[id]) guestConns[id].send({ effect: eff, ...ext }); });
     }
 
     function syncState() {
       if (!isHost) return;
-      const cleanRoom = {
+      const clean = {
         ...room,
-        players: room.players.map(p => ({ id: p.id, name: p.name, cardCount: p.hand.length }))
+        players: room.players.map(p => ({ id: p.id, name: p.name, lives: p.lives ?? 3, cardCount: p.hand.length }))
       };
-      updateUI(cleanRoom, room.players.find(p => p.id === myId)?.hand);
+      updateUI(clean, room.players.find(p => p.id === myId)?.hand);
       Object.keys(guestConns).forEach(id => {
         const p = room.players.find(x => x.id === id);
-        if (guestConns[id] && p) guestConns[id].send({ sync: true, room: cleanRoom, myHand: p.hand });
+        if (guestConns[id] && p) guestConns[id].send({ sync: true, room: clean, myHand: p.hand });
       });
     }
 
     function playFeverAnimation() {
-      const ov = document.getElementById('feverOverlay');
-      const brain = document.getElementById('brainBox');
-      const title = document.getElementById('feverTitleBox');
-      const imgContainer = document.getElementById('feverImgContainer');
-      const defText = document.getElementById('feverDefaultText');
-
+      const ov = document.getElementById('feverOverlay'), brain = document.getElementById('brainBox'), title = document.getElementById('feverTitleBox');
+      const imgC = document.getElementById('feverImgContainer'), defT = document.getElementById('feverDefaultText');
       if (ASSETS.cutinFever) {
-        imgContainer.innerHTML = `<img src="${ASSETS.cutinFever}" alt="煩悩暴走‼️" class="custom-asset-img" onerror="this.style.display='none'; document.getElementById('feverDefaultText').style.display='block';">`;
-        defText.style.display = 'none';
-      } else {
-        imgContainer.innerHTML = '';
-        defText.style.display = 'block';
-      }
-
-      ov.style.display = 'flex';
-      brain.classList.remove('open');
-      title.classList.remove('show');
-
+        imgC.innerHTML = `<img src="${ASSETS.cutinFever}" alt="煩悩暴走‼️" style="max-width:90%; max-height:150px; object-fit:contain; filter:drop-shadow(0 0 8px #fff) drop-shadow(0 0 20px #ec4899);" onerror="this.style.display='none'; document.getElementById('feverDefaultText').style.display='block';">`;
+        defT.style.display = 'none';
+      } else { imgC.innerHTML = ''; defT.style.display = 'block'; }
+      ov.style.display = 'flex'; brain.classList.remove('open'); title.classList.remove('show');
       setTimeout(() => brain.classList.add('open'), 100);
-      setTimeout(() => {
-        title.classList.add('show');
-        document.body.classList.add('shake-screen');
-      }, 400);
-
-      setTimeout(() => {
-        document.body.classList.remove('shake-screen');
-        ov.style.display = 'none';
-      }, 2600);
+      setTimeout(() => { title.classList.add('show'); document.body.classList.add('shake-screen'); }, 400);
+      setTimeout(() => { document.body.classList.remove('shake-screen'); ov.style.display = 'none'; }, 2600);
     }
 
-    function playGameOverAnimation(loserName) {
-      const ov = document.getElementById('collapseOverlay');
-      const imgContainer = document.getElementById('collapseImgContainer');
-      const defText = document.getElementById('collapseDefaultText');
-      const loserElem = document.getElementById('collapseLoserName');
-
+    function playGameOverAnimation(lName, isMatchOver) {
+      const ov = document.getElementById('collapseOverlay'), imgC = document.getElementById('collapseImgContainer');
+      const defT = document.getElementById('collapseDefaultText'), lElem = document.getElementById('collapseLoserName');
+      const dElem = document.getElementById('collapseDescText'), subN = document.getElementById('collapseSubNotice');
       if (ASSETS.cutinGameOver) {
-        imgContainer.innerHTML = `<img src="${ASSETS.cutinGameOver}" alt="煩悩崩壊" class="collapse-asset-img" onerror="this.style.display='none'; document.getElementById('collapseDefaultText').style.display='block';">`;
-        defText.style.display = 'none';
+        imgC.innerHTML = `<img src="${ASSETS.cutinGameOver}" alt="煩悩崩壊" class="collapse-asset-img" onerror="this.style.display='none'; document.getElementById('collapseDefaultText').style.display='block';">`;
+        defT.style.display = 'none';
+      } else { imgC.innerHTML = ''; defT.style.display = 'block'; }
+      if (isMatchOver) {
+        lElem.innerText = `💀 脱落者: ${lName || '???'} (🧠0)`;
+        dElem.innerText = '理性が完全に崩壊しました！ゲームセット！';
+        subN.innerText = 'ホストが「もう一度全員で遊ぶ」を押すと再スタートします';
       } else {
-        imgContainer.innerHTML = '';
-        defText.style.display = 'block';
+        lElem.innerText = `爆発した人: ${lName || '???'} 💥`;
+        dElem.innerText = '上限を超過し、🧠を1つ失いました！';
+        subN.innerText = `まもなく ${lName} から次ラウンドが始まります...`;
       }
-
-      loserElem.innerText = `爆発した人: ${loserName || '???'} 💥`;
-      ov.style.display = 'flex';
-      document.body.classList.add('shake-screen');
-
-      setTimeout(() => {
-        document.body.classList.remove('shake-screen');
-        ov.style.display = 'none';
-      }, 3400);
+      ov.style.display = 'flex'; document.body.classList.add('shake-screen');
+      setTimeout(() => { document.body.classList.remove('shake-screen'); ov.style.display = 'none'; }, isMatchOver ? 4500 : 3400);
     }
 
     let currentRoomState = null, myLocalHand = [];
-
     function showGame(code) {
       document.getElementById('lobbyScreen').style.display = 'none';
       document.getElementById('gameScreen').style.display = 'flex';
@@ -825,143 +509,78 @@
     }
 
     function updateUI(st, hand) {
-      currentRoomState = st;
-      myLocalHand = hand || [];
+      currentRoomState = st; myLocalHand = hand || [];
+      const isWait = (st.status === 'waiting'), isEnd = (st.status === 'ended');
+      document.getElementById('waitingStoryBox').style.display = isWait ? 'block' : 'none';
+      document.getElementById('boardCenter').style.display = (isWait || isEnd) ? 'none' : 'block';
+      document.getElementById('handContainer').style.display = (isWait || isEnd) ? 'none' : 'block';
+      document.getElementById('btnStartGame').style.display = (isHost && isWait) ? 'block' : 'none';
+      document.getElementById('btnRestartGame').style.display = (isHost && isEnd) ? 'block' : 'none';
 
-      const isWaiting = (st.status === 'waiting');
-      document.getElementById('waitingStoryBox').style.display = isWaiting ? 'block' : 'none';
-      document.getElementById('boardCenter').style.display = isWaiting ? 'none' : 'block';
-      document.getElementById('handContainer').style.display = isWaiting ? 'none' : 'block';
+      const bc = document.getElementById('boardCenter'), lb = document.getElementById('limitBadge');
+      if (st.maxBonno === 222) { bc.classList.add('fever-mode'); lb.className = 'limit-badge fever'; lb.innerText = '🔥 FEVER上限: 222 🔥'; }
+      else { bc.classList.remove('fever-mode'); lb.className = 'limit-badge'; lb.innerText = '上限: 108'; }
 
-      const btnStart = document.getElementById('btnStartGame');
-      btnStart.style.display = (isHost && isWaiting) ? 'block' : 'none';
+      const cv = document.getElementById('counterValue'); cv.innerText = st.currentTotal;
+      cv.className = 'counter-value ' + (st.currentTotal >= (st.maxBonno - 15) ? 'counter-danger' : 'counter-normal');
 
-      const boardCenter = document.getElementById('boardCenter');
-      const limitBadge = document.getElementById('limitBadge');
-      if (st.maxBonno === 222) {
-        boardCenter.classList.add('fever-mode');
-        limitBadge.className = 'limit-badge fever';
-        limitBadge.innerText = '🔥 FEVER上限: 222 🔥';
-      } else {
-        boardCenter.classList.remove('fever-mode');
-        limitBadge.className = 'limit-badge';
-        limitBadge.innerText = '上限: 108';
-      }
-
-      const cv = document.getElementById('counterValue');
-      cv.innerText = st.currentTotal;
-      const isDanger = st.currentTotal >= (st.maxBonno - 15);
-      cv.className = 'counter-value ' + (isDanger ? 'counter-danger' : 'counter-normal');
-
-      const tableCardBox = document.getElementById('tableCardContainer');
-      const playerTag = document.getElementById('lastPlayerTag');
-
+      const tBox = document.getElementById('tableCardContainer'), pTag = document.getElementById('lastPlayerTag');
       if (st.lastCard) {
-        const c = st.lastCard;
-        const imgSrc = ASSETS.cards[c.l];
-        let badgeCls = '';
-        if (c.t === 'div2' || c.t === 'mul2' || c.t === 'sqrt' || c.t === 'sqr') badgeCls = 'badge-calc';
-        else if (c.t === 'fever') badgeCls = 'badge-fever';
-        else if (c.t === '108') badgeCls = 'badge-danger';
-
-        let innerContent = '';
-        if (imgSrc) {
-          innerContent = `
-            <div class="card-corner-badge ${badgeCls}" style="font-size:10px; padding:1px 5px;">${c.l}</div>
-            <div style="width:70px; height:70px; margin-top:12px; display:flex; align-items:center; justify-content:center;">
-              <img src="${imgSrc}" class="card-inner-img" onerror="this.parentElement.innerHTML='<div class=\\'card-val\\' style=\\'font-size:18px;\\'>${c.l}</div>';">
-            </div>
-          `;
-        } else {
-          innerContent = `
-            <div class="card-corner-badge ${badgeCls}" style="font-size:10px; padding:1px 5px;">${c.l}</div>
-            <div class="card-val" style="font-size:20px; color:#1e293b;">${c.l}</div>
-          `;
-        }
-
-        tableCardBox.innerHTML = `<div class="table-card-box card-pop">${innerContent}</div>`;
-        playerTag.style.display = 'inline-block';
-        playerTag.innerText = `${c.playedBy} がプレイ！`;
+        const c = st.lastCard, img = ASSETS.cards[c.l];
+        let bCls = '';
+        if (['div2','mul2','sqrt','sqr'].includes(c.t)) bCls = 'badge-calc';
+        else if (c.t === 'fever') bCls = 'badge-fever';
+        else if (c.t === '108') bCls = 'badge-danger';
+        tBox.innerHTML = `<div class="table-card-box card-pop">${img ? `<div class="card-corner-badge ${bCls}" style="font-size:10px; padding:1px 5px;">${c.l}</div><div style="width:70px; height:70px; margin-top:12px; display:flex; align-items:center; justify-content:center;"><img src="${img}" class="card-inner-img" onerror="this.parentElement.innerHTML='<div class=\\'card-val\\' style=\\'font-size:18px;\\'>${c.l}</div>';"></div>` : `<div class="card-corner-badge ${bCls}" style="font-size:10px; padding:1px 5px;">${c.l}</div><div class="card-val" style="font-size:20px; color:#1e293b;">${c.l}</div>`}</div>`;
+        pTag.style.display = 'inline-block'; pTag.innerText = `${c.playedBy} がプレイ！`;
       } else {
-        tableCardBox.innerHTML = `<div class="table-card-box" style="border-style:dashed; color:#94a3b8; font-size:26px;">🐾</div>`;
-        playerTag.style.display = 'none';
+        tBox.innerHTML = `<div class="table-card-box" style="border-style:dashed; color:#94a3b8; font-size:26px;">🐾</div>`;
+        pTag.style.display = 'none';
       }
 
-      const dBadge = document.getElementById('directionBadge');
       let dText = `回り順: ${st.direction === 1 ? '時計回り ➔' : '反時計回り 逆➔'}`;
       if (st.playerRemainingPlays > 1) dText += ' [DOUBLE発動中: 残り2枚]';
-      dBadge.innerText = dText;
-
+      document.getElementById('directionBadge').innerText = dText;
       document.getElementById('logBox').innerText = st.lastAction || '';
 
-      const list = document.getElementById('playersList');
-      list.innerHTML = '';
+      const list = document.getElementById('playersList'); list.innerHTML = '';
       st.players.forEach((p, i) => {
-        const isTurn = st.status === 'playing' && st.currentTurn === i;
+        const isT = st.status === 'playing' && st.currentTurn === i, isD = (p.lives <= 0);
         const div = document.createElement('div');
-        div.className = `player-card ${isTurn ? 'active' : ''}`;
-        div.innerHTML = `
-          <div style="font-weight:bold; font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
-            ${p.name} ${p.id === myId ? '(自分)' : ''}
-          </div>
-          <div style="font-size:11px; color:#64748b; margin-top:4px;">手札: ${p.cardCount}枚</div>
-        `;
+        div.className = `player-card ${isT ? 'active' : ''} ${isD ? 'dead' : ''}`;
+        const b = '🧠'.repeat(Math.max(0, p.lives ?? 3)) || '💀脱落';
+        div.innerHTML = `<div style="font-weight:bold; font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${p.name} ${p.id === myId ? '(自分)' : ''}</div><div style="font-size:13px; margin: 4px 0;">${b}</div><div style="font-size:11px; color:#64748b;">手札: ${p.cardCount}枚</div>`;
         list.appendChild(div);
       });
 
-      const isMyTurn = st.status === 'playing' && st.players[st.currentTurn]?.id === myId;
-      const notice = document.getElementById('turnNotice');
-      if (st.status === 'ended') {
-        notice.innerText = `💥 煩悩崩壊！ 次のゲームを自動準備中...`;
-        notice.style.color = '#dc2626';
-      } else if (isMyTurn) {
-        if (st.playerRemainingPlays > 1) {
-          notice.innerText = '⚠️ DOUBLE効果中！あと2枚カードを出してください';
-          notice.style.color = '#ef4444';
-        } else {
-          notice.innerText = 'あなたの手番です！カードを選んで出してください';
-          notice.style.color = 'var(--primary-blue)';
-        }
-      } else {
-        notice.innerText = '対戦相手の思考中...';
-        notice.style.color = 'var(--text-sub)';
-      }
+      const isMy = st.status === 'playing' && st.players[st.currentTurn]?.id === myId;
+      const noti = document.getElementById('turnNotice');
+      if (st.status === 'ended') { noti.innerText = `🏆 ゲームセット！ ホストが「もう一度全員で遊ぶ」を押すと再スタートします`; noti.style.color = 'var(--primary-orange)'; }
+      else if (isMy) {
+        noti.innerText = st.playerRemainingPlays > 1 ? '⚠️ DOUBLE効果中！あと2枚カードを出してください' : 'あなたの手番です！カードを選んで出してください';
+        noti.style.color = st.playerRemainingPlays > 1 ? '#ef4444' : 'var(--primary-blue)';
+      } else { noti.innerText = '対戦相手の思考中...'; noti.style.color = 'var(--text-sub)'; }
 
-      const hc = document.getElementById('handCards');
-      hc.innerHTML = '';
+      const hc = document.getElementById('handCards'); hc.innerHTML = '';
       myLocalHand.forEach((c, idx) => {
-        const div = document.createElement('div');
-        div.className = `game-card ${!isMyTurn ? 'disabled' : ''}`;
-
-        let badgeCls = '';
-        if (c.t === 'div2' || c.t === 'mul2' || c.t === 'sqrt' || c.t === 'sqr') badgeCls = 'badge-calc';
-        else if (c.t === 'fever') badgeCls = 'badge-fever';
-        else if (c.t === '108') badgeCls = 'badge-danger';
-
-        const imgSrc = ASSETS.cards[c.l];
-
-        if (imgSrc) {
-          div.innerHTML = `
-            <div class="card-corner-badge ${badgeCls}">${c.l}</div>
-            <div class="card-img-square-box">
-              <img src="${imgSrc}" alt="${c.l}" class="card-inner-img" onerror="this.parentElement.innerHTML='<div class=\\'card-val\\'>${c.l}</div>';">
-            </div>
-          `;
+        const div = document.createElement('div'); div.className = `game-card ${!isMy ? 'disabled' : ''}`;
+        let bCls = '';
+        if (['div2','mul2','sqrt','sqr'].includes(c.t)) bCls = 'badge-calc';
+        else if (c.t === 'fever') bCls = 'badge-fever';
+        else if (c.t === '108') bCls = 'badge-danger';
+        const img = ASSETS.cards[c.l];
+        if (img) {
+          div.innerHTML = `<div class="card-corner-badge ${bCls}">${c.l}</div><div class="card-img-square-box"><img src="${img}" alt="${c.l}" class="card-inner-img" onerror="this.parentElement.innerHTML='<div class=\\'card-val\\'>${c.l}</div>';"></div>`;
         } else {
           let cl = 'card-num';
           if (c.t === 'min') cl = 'card-minus';
-          else if (c.t === 'div2' || c.t === 'mul2' || c.t === 'sqrt' || c.t === 'sqr') cl = 'card-calc';
+          else if (['div2','mul2','sqrt','sqr'].includes(c.t)) cl = 'card-calc';
           else if (c.t === 'fever') cl = 'card-fever';
           else if (c.t !== 'num') cl = 'card-special';
-
           div.className += ` ${cl}`;
-          div.innerHTML = `
-            <div class="card-corner-badge">${c.l}</div>
-            <div class="card-val">${c.l}</div>
-          `;
+          div.innerHTML = `<div class="card-corner-badge">${c.l}</div><div class="card-val">${c.l}</div>`;
         }
-
-        div.onclick = () => { if (isMyTurn) playCard(idx); };
+        div.onclick = () => { if (isMy) playCard(idx); };
         hc.appendChild(div);
       });
     }

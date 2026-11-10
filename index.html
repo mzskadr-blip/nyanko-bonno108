@@ -24,9 +24,9 @@
     .btn-main-blue, .btn-main-green { width: 100%; padding: 13px; border-radius: 8px; color: #fff; font-weight: 800; border: none; cursor: pointer; font-size: 15px; }
     .btn-main-blue { background: var(--primary-blue); } .btn-main-green { background: var(--primary-green); }
     .btn-copy { background: #ffedd5; color: #c2410c; border: 1px solid #fed7aa; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 800; }
-    .story-card { background: #fff; border: 2px dashed #fed7aa; border-radius: 16px; padding: 16px; line-height: 1.8; font-size: 13px; color: #334155; }
-    .story-title { font-size: 14px; font-weight: 900; color: var(--primary-orange); margin-bottom: 8px; }
-    .story-highlight { font-weight: 800; color: #c2410c; background: #fff7ed; padding: 1px 4px; border-radius: 4px; }
+    .story-card { background: #fff; border: 2px dashed #fed7aa; border-radius: 16px; padding: 18px 16px; line-height: 1.8; font-size: 13.5px; color: #334155; }
+    .story-title { font-size: 15px; font-weight: 900; color: var(--primary-orange); margin-bottom: 10px; }
+    .story-highlight { font-weight: 800; color: #c2410c; background: #fff7ed; padding: 1px 5px; border-radius: 4px; }
     .board-center { padding: 14px 16px; background: #fff; border-radius: 16px; border: 2px solid var(--border); text-align: center; }
     .board-center.fever-mode { border-color: #ec4899; background: #fdf2f8; box-shadow: 0 0 18px rgba(236,72,153,0.3); }
     .board-split { display: flex; align-items: center; justify-content: space-around; margin: 8px 0; gap: 12px; }
@@ -34,12 +34,12 @@
     .limit-badge { font-size: 12px; font-weight: 800; padding: 3px 10px; border-radius: 12px; background: #fee2e2; color: #b91c1c; display: inline-block; }
     .limit-badge.fever { background: #fbcfe8; color: #be185d; animation: pulse 1s infinite alternate; }
     @keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.06); } }
-    .counter-value { font-size: 58px; font-weight: 900; line-height: 1; margin: 4px 0; }
+    .counter-value { font-size: 60px; font-weight: 900; line-height: 1; margin: 4px 0; }
     .counter-normal { color: var(--primary-orange); } .counter-danger { color: var(--danger); }
     .status-badge { display: inline-block; padding: 4px 10px; border-radius: 14px; font-size: 12px; background: #f1f5f9; font-weight: 700; color: var(--text-sub); }
     .table-card-box { width: 86px; height: 120px; border-radius: 10px; border: 2px solid #cbd5e1; background: #fff; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
     .table-card-box.card-pop { animation: popIn 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28); }
-    @keyframes popIn { 0% { transform: scale(0.8); } 100% { transform: scale(1); } }
+    @keyframes popIn { 0% { transform: scale(0.8); } 70% { transform: scale(1.08); } 100% { transform: scale(1); } }
     .player-tag { font-size: 11px; font-weight: 800; color: #475569; background: #f1f5f9; padding: 2px 8px; border-radius: 10px; margin-top: 4px; max-width: 120px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .players-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
     .player-card { background: #fff; padding: 10px 8px; border-radius: 10px; border: 2px solid var(--border); text-align: center; }
@@ -213,17 +213,35 @@
       fever: { probability: 0.5, count: 1 }
     };
 
+    /* ★ 二乗を card_spr.PNG、6を card_6.PNG に設定！ */
     const ASSETS = {
       cutinFever: './bonno_bousou.PNG',
       cutinGameOver: './bonno_houkai.PNG',
       cards: {
-        '÷2': './card_div2.PNG', '×2': './card_mul2.PNG', 'x²': '', '√': './card_sprt.PNG',
-        '+29': './card_29.PNG', '+77': './card_77.PNG', 'NYANKO FEVER': './nyanko_fever.PNG',
-        '108': './card_108.PNG', 'PASS': './card_pass.PNG', 'TURN': './card_trun.PNG',
-        'SHOT': './card_shot.PNG', 'DOUBLE': './card_double.PNG', '-1': './card_minus1.PNG',
-        '-10': './card_minus10.PNG', '+1': './card_1.PNG', '+2': './card_2.png',
-        '+3': './card_3.PNG', '+4': './card_4.png', '+5': './card_5.PNG', '+6': '',
-        '+7': './card_7.PNG', '+8': './card_8.PNG', '+9': './card_9.PNG', '+10': './card_10.PNG'
+        '÷2': './card_div2.PNG',
+        '×2': './card_mul2.PNG',
+        'x²': './card_spr.PNG',  // ★ 二乗カード！
+        '√': './card_sprt.PNG',
+        '+29': './card_29.PNG',
+        '+77': './card_77.PNG',
+        'NYANKO FEVER': './nyanko_fever.PNG',
+        '108': './card_108.PNG',
+        'PASS': './card_pass.PNG',
+        'TURN': './card_trun.PNG',
+        'SHOT': './card_shot.PNG',
+        'DOUBLE': './card_double.PNG',
+        '-1': './card_minus1.PNG',
+        '-10': './card_minus10.PNG',
+        '+1': './card_1.PNG',
+        '+2': './card_2.png',
+        '+3': './card_3.PNG',
+        '+4': './card_4.png',
+        '+5': './card_5.PNG',
+        '+6': './card_6.PNG',    // ★ 6のカード！
+        '+7': './card_7.PNG',
+        '+8': './card_8.PNG',
+        '+9': './card_9.PNG',
+        '+10': './card_10.PNG'
       }
     };
 
@@ -567,7 +585,7 @@
         let bCls = '';
         if (['div2','mul2','sqrt','sqr'].includes(c.t)) bCls = 'badge-calc';
         else if (c.t === 'fever') bCls = 'badge-fever';
-        else if (c.t === '108') bCls = 'badge-danger';
+        else if (c.t === '108') badgeCls = 'badge-danger';
         const img = ASSETS.cards[c.l];
         if (img) {
           div.innerHTML = `<div class="card-corner-badge ${bCls}">${c.l}</div><div class="card-img-square-box"><img src="${img}" alt="${c.l}" class="card-inner-img" onerror="this.parentElement.innerHTML='<div class=\\'card-val\\'>${c.l}</div>';"></div>`;
